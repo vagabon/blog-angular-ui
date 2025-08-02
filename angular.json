@@ -7,8 +7,16 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "type": "component",
           "style": "scss"
-        }
+        },
+        "@schematics/angular:directive": { "type": "directive" },
+        "@schematics/angular:service": { "type": "service" },
+        "@schematics/angular:guard": { "typeSeparator": "." },
+        "@schematics/angular:interceptor": { "typeSeparator": "." },
+        "@schematics/angular:module": { "typeSeparator": "." },
+        "@schematics/angular:pipe": { "typeSeparator": "." },
+        "@schematics/angular:resolver": { "typeSeparator": "." }
       },
       "root": "",
       "sourceRoot": "src",
@@ -27,7 +35,10 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/@ng-vagabond-lab/ng-dsv/assets/global.scss",
+              "node_modules/@ng-vagabond-lab/ng-dsv/assets/style.scss",
+              "src/styles.scss",
+              "node_modules/remixicon/fonts/remixicon.css"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -85,12 +96,17 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/styles.scss"],
+            "codeCoverageExclude": [
+              "**/main.ts,**/*.config.ts,**/*.server.ts,**/*.route*.ts"
+            ],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

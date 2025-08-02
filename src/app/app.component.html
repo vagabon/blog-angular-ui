@@ -1,0 +1,22 @@
+@if (load()) {
+  <dsv-theme [theme]="theme">
+    <header>
+      <app-header />
+    </header>
+
+    <dsv-container [column]="true">
+      <nav>
+        <app-menu />
+      </nav>
+      <dsv-container class="scroll main-content" (scroll)="doScroll()">
+        <app-linear-progress [load]="apiService.apiLoadService.load()" />
+        <section class="main-section">
+          <router-outlet />
+        </section>
+        <app-scroll-top-button [scroll]="scrollService.scroll()" />
+      </dsv-container>
+    </dsv-container>
+
+    <dsv-toast />
+  </dsv-theme>
+}

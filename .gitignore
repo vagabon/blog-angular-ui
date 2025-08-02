@@ -5,6 +5,10 @@
 /tmp
 /out-tsc
 /bazel-out
+.scannerwork
+
+.env
+env.json
 
 # Node
 /node_modules

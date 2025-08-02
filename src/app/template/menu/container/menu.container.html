@@ -1,0 +1,39 @@
+<dsv-menu>
+  <dsv-item
+    [small]="true"
+    icon="film"
+    text="Films"
+    url="/movie"
+    (callback)="closeMenu()"
+  ></dsv-item>
+  <dsv-item
+    [small]="true"
+    icon="tv"
+    text="Tv Shows"
+    url="/tv"
+    (callback)="closeMenu()"
+  ></dsv-item>
+  <dsv-item
+    [small]="true"
+    icon="user"
+    text="Personnes"
+    url="/person"
+    (callback)="closeMenu()"
+  ></dsv-item>
+  <dsv-item
+    [small]="true"
+    icon="file-list"
+    text="Listes"
+    url="/list"
+    (callback)="closeMenu()"
+  ></dsv-item>
+  @if (isAdmin()) {
+    <dsv-item
+      [small]="true"
+      icon="admin"
+      text="Admin"
+      url="/admin/"
+      (callback)="closeMenu()"
+    ></dsv-item>
+  }
+</dsv-menu>

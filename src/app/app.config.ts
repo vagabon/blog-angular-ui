@@ -1,13 +1,30 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, provideAppInitializer, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideClientHydration } from '@angular/platform-browser';
+import { authInterceptor } from '@ng-vagabond-lab/ng-dsv/api';
+import { provideTranslateService } from '@ngx-translate/core';
+import { initializeApp } from './app.initializer';
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
-  ]
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      }),
+    ),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor('-popcorn')]),
+    ),
+    provideClientHydration(),
+    provideAppInitializer(initializeApp),
+    provideTranslateService({
+      fallbackLang: 'fr',
+    }),
+  ],
 };

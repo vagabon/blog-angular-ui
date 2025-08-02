@@ -9,8 +9,8 @@
     "link": "npm link @ng-vagabond-lab/ng-dsv && npm start",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "serve:ssr": "node dist/blog-angular-ui/server/server.mjs",
     "test": "ng test --browsers=Chrome",
-    "serve:ssr:blog-angular-ui": "node dist/blog-angular-ui/server/server.mjs",
     "test:coverage": "ng test --no-watch --code-coverage --browsers=Chrome",
     "test:coverage:headless": "ng test --no-watch --code-coverage --browsers=CustomChromeHeadless",
     "sonar": "npm run test:coverage:headless && npx sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.host.url=http://localhost:9000"

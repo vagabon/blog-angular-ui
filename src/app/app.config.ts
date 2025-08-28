@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor('-popcorn')]),
+      withInterceptors([authInterceptor('-blog')]),
     ),
     provideClientHydration(),
     provideAppInitializer(initializeApp),

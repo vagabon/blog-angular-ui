@@ -1,16 +1,10 @@
 export const AppConf = {
-    TITLE: 'PopCorn',
+    TITLE: 'Blog&Tools',
     NB_PAGE: 3,
     META: {
-        TITLE: {
-            MOVIE_LIST: "Rechercher un film",
-            TV_LIST: "Rechercher une Série",
-            PERSON_LIST: "Rechercher une personne"
+        NEWS: {
+            LIST: "Rechercher une news",
+            LIST_DESCRIPTION: "Rechercher une news sur Blog & Tools de Vagabond",
         },
-        DESCRIPTION: {
-            MOVIE_LIST: "Rechercher un film via l'API TMDB",
-            TV_LIST: "Rechercher une série via l'API TMDB",
-            PERSON_LIST: "Rechercher une personne via l'API TMDB"
-        }
     }
 }

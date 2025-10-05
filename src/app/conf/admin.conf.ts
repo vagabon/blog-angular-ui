@@ -12,7 +12,6 @@ export const AdminConf: AdminTabConfDto = {
             sortBy: 'creationDate',
             sortByAsc: 'desc',
             cells: [
-                { label: 'FIELDS.ID', name: 'id', width: '70px', order: true },
                 { label: 'NEWS:FIELDS.TITLE', name: 'title', order: true },
                 { label: 'NEWS:FIELDS.USER', name: 'user.username', order: false },
                 ...ADMIN_COL,

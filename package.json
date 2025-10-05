@@ -17,26 +17,26 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^20.2.2",
-    "@angular/core": "^20.2.2",
-    "@angular/forms": "^20.2.2",
-    "@angular/platform-browser": "^20.2.2",
-    "@angular/platform-server": "^20.2.2",
-    "@angular/router": "^20.2.2",
-    "@angular/ssr": "^20.2.1",
+    "@angular/common": "^20.3.3",
+    "@angular/core": "^20.3.3",
+    "@angular/forms": "^20.3.3",
+    "@angular/platform-browser": "^20.3.3",
+    "@angular/platform-server": "^20.3.3",
+    "@angular/router": "^20.3.3",
+    "@angular/ssr": "^20.3.4",
     "@ngx-translate/core": "^17.0.0",
     "express": "^5.1.0",
     "remixicon": "^4.6.0",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@angular/build": "^20.2.1",
-    "@angular/cli": "^20.2.1",
-    "@ng-vagabond-lab/ng-dsv": "^0.0.175",
+    "@angular/build": "^20.3.4",
+    "@angular/cli": "^20.3.4",
+    "@ng-vagabond-lab/ng-dsv": "^0.0.176",
     "@types/express": "^5.0.3",
     "@types/jasmine": "~5.1.9",
-    "dotenv": "^17.2.1",
-    "jasmine-core": "~5.9.0",
+    "dotenv": "^17.2.3",
+    "jasmine-core": "~5.12.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
@@ -45,6 +45,6 @@
     "rxjs": "~7.8.2",
     "prettier": "^3.6.2",
     "sonar-scanner": "^3.1.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }

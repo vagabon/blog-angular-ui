@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService, ID, PageableDto } from '@ng-vagabond-lab/ng-dsv/api';
 import { ToastService } from '@ng-vagabond-lab/ng-dsv/ds/toast';
-import { Store } from 'app/store/store';
+import { Store } from '@ng-vagabond-lab/ng-dsv/storage';
 import { NewsDto } from '../dto/NewsDto';
 
 @Injectable({ providedIn: 'root' })

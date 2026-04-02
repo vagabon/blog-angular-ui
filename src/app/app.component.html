@@ -9,7 +9,7 @@
         <app-menu />
       </nav>
       <dsv-container class="scroll main-content" (scroll)="doScroll()">
-        <app-linear-progress [load]="apiService.apiLoadService.load()" />
+        <app-linear-progress [load]="apiService.load()" />
         <section class="main-section">
           <router-outlet />
         </section>

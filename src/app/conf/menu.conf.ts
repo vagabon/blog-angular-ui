@@ -1,12 +1,6 @@
 export const menu = {
     content: [
         {
-            id: 'home',
-            text: 'Accueil',
-            icon: 'home',
-            url: '/home',
-        },
-        {
             id: 'news',
             text: 'News',
             icon: 'news',

@@ -1,5 +1,6 @@
 :host {
     display: flex;
+    flex: 1;
     gap: 20px;
 
     .bento {
@@ -9,18 +10,21 @@
         gap: 20px;
 
         &>div {
-            height: 50%;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
 
             &>a {
-                margin-bottom: 10px !important;
-                font-size: 1.3rem !important;
+                margin: 10px 0;
+                font-size: 1.3rem;
             }
 
             ul {
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
-                padding-left: 10px;
+                gap: 10px;
+                margin: 0;
+                padding: 10px;
                 list-style: none;
 
                 li {
@@ -32,12 +36,20 @@
                         &>div {
                             display: flex;
                             flex-direction: column;
-                            gap: 4px;
+                            width: 90%;
+                            gap: 2px;
+
+                            span {
+                                font-size: 0.9rem;
+                            }
 
                             span:nth-child(2) {
-                                font-size: 0.9rem;
+                                font-size: 0.8rem;
                                 color: var(--subtitle);
                             }
+
+                            padding: 5px 0;
+                            border-bottom: 1px solid var(--border);
                         }
 
                         img {
@@ -48,10 +60,14 @@
                         }
 
                         &:hover {
-                            transition: all .1s ease-in-out;
+                            transform: scale(1.01);
                         }
                     }
                 }
+            }
+
+            @media screen and (max-width: 800px) {
+                min-height: auto;
             }
         }
 
@@ -62,5 +78,10 @@
 
     @media screen and (max-width: 800px) {
         flex-direction: column;
+
+        app-news-card-resume {
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
     }
 }

@@ -1,0 +1,50 @@
+:host {
+    display: flex;
+    width: calc(100% - 5px);
+    min-height: 300px;
+    margin-right: 5px;
+    overflow: hidden;
+
+    dsv-card {
+        position: relative;
+
+        h1 {
+            margin: 0;
+        }
+
+        h2 {
+            margin: 0 0 5px;
+        }
+
+        img {
+            width: calc(100% + 20px);
+        }
+
+        .blog-image {
+            margin: 0px 0px 5px;
+            width: calc(100%);
+        }
+
+        dsv-card-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+            margin: 0 0 10px;
+
+            dsv-button.round {
+                --button-border-radius: 50%;
+            }
+
+            h1,
+            h2 {
+                flex: 1;
+            }
+        }
+    }
+
+    dsv-markdown-container {
+        margin: 20px 0;
+    }
+
+}

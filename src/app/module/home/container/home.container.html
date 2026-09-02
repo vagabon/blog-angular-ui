@@ -1,0 +1,39 @@
+<div class="bento">
+    <app-news-card-resume [news]="homeService.news()" />
+</div>
+
+<div class="bento">
+    <div>
+        <a href="/news" dsvLink>{{ 'HOME.LAST_NEWS' | translate }}</a>
+        <ul>
+            @for (news of homeService.lastNews(); track news.id) {
+                <li>
+                    <a [href]="'/news/' + news.id" dsvLink>
+                        <img [src]="'/api/file/download?fileName=' + news.image" />
+                        <div>
+                            <span>{{ news.title }}</span>
+                            <span>{{ news.creationDate! | formatDate: true }} </span>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div>
+        <a href="/blog" dsvLink>{{ 'HOME.LAST_BLOG' | translate }}</a>
+        <ul>
+            @for (blog of homeService.lastBlog(); track blog.id) {
+                <li>
+                    <a [href]="'/blog/' + blog.id" dsvLink>
+                        <img [src]="'/api/file/download?fileName=' + blog.image" />
+                        <div>
+                            <span>{{ blog.title }}</span>
+                            <span>{{ blog.creationDate! | formatDate: true }} </span>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

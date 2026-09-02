@@ -1,32 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BaseAppScrollComponent } from '@ng-vagabond-lab/ng-dsv/base';
-import { ButtonScrollTopComponent } from '@ng-vagabond-lab/ng-dsv/ds/button';
+import { BaseMainContainer } from '@ng-vagabond-lab/ng-dsv/base';
 import { DsvContainerComponent } from '@ng-vagabond-lab/ng-dsv/ds/container';
+import { DsvHeaderComponent } from '@ng-vagabond-lab/ng-dsv/ds/header';
 import { LinearProgressComponent } from '@ng-vagabond-lab/ng-dsv/ds/linear-progress';
+import { MenuService } from '@ng-vagabond-lab/ng-dsv/ds/menu';
+import { DsvScrollInfiniteContainer } from '@ng-vagabond-lab/ng-dsv/ds/scroll';
 import { DsvThemeComponent } from '@ng-vagabond-lab/ng-dsv/ds/theme';
 import { DsvToastComponent } from '@ng-vagabond-lab/ng-dsv/ds/toast';
-import { HeaderContainer } from './template/header/container/header.container';
-import { MenuContainer } from './template/menu/container/menu.container';
+import { AuthComponent } from '@ng-vagabond-lab/ng-dsv/module/auth';
+import {
+    NotificationButtonContainer,
+    NotificationService,
+} from '@ng-vagabond-lab/ng-dsv/module/notification';
+import { FooterComponent, MenuContainer, MenuDto } from '@ng-vagabond-lab/ng-dsv/template';
+import { menu } from './conf/menu.conf';
 
 @Component({
-  selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    DsvThemeComponent,
-    LinearProgressComponent,
-    DsvContainerComponent,
-    MenuContainer,
-    DsvToastComponent,
-    MenuContainer,
-    ButtonScrollTopComponent,
-    HeaderContainer,
-  ],
-  templateUrl: './app.component.html',
+    selector: 'app-root',
+    imports: [
+        DsvThemeComponent,
+        LinearProgressComponent,
+        DsvContainerComponent,
+        DsvToastComponent,
+        DsvScrollInfiniteContainer,
+        DsvHeaderComponent,
+        AuthComponent,
+        MenuContainer,
+        FooterComponent,
+        RouterOutlet,
+        NotificationButtonContainer,
+    ],
+    templateUrl: './app.component.html',
 })
-export class AppComponent extends BaseAppScrollComponent {
+export class AppComponent extends BaseMainContainer {
+    readonly menuService = inject(MenuService);
+    readonly notificationService = inject(NotificationService);
 
-  theme = {
-    primary: '#ff8307',
-  };
+    readonly menu = signal<MenuDto>(menu);
+
+    constructor() {
+        super();
+        effect(() => {
+            if (this.authService.userConnected() && this.routerService.currentUrl()) {
+                this.notificationService.fetchNbRead();
+            }
+        });
+    }
 }

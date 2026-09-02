@@ -1,0 +1,11 @@
+:host {
+    margin: 0px;
+    width: calc(100%);
+    min-height: 200px !important;
+
+    &,
+    a {
+        display: flex;
+        width: 100%;
+    }
+}

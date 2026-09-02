@@ -1,22 +1,32 @@
-@if (load()) {
-  <dsv-theme [theme]="theme">
+<dsv-theme>
     <header>
-      <app-header />
+        <dsv-header [titleText]="environmentService.config()?.APP_NAME!" img="/images/logo.png">
+            <dsv-auth>
+                <app-notification-button-container />
+            </dsv-auth>
+        </dsv-header>
     </header>
 
     <dsv-container [column]="true">
-      <nav>
-        <app-menu />
-      </nav>
-      <dsv-container class="scroll main-content" (scroll)="doScroll()">
-        <app-linear-progress [load]="apiService.load()" />
-        <section class="main-section">
-          <router-outlet />
-        </section>
-        <app-scroll-top-button [scroll]="scrollService.scroll()" />
-      </dsv-container>
+        <nav>
+            <app-menu-container [menu]="menu()"> </app-menu-container>
+        </nav>
+        <dsv-scroll-infinite id="main-scroll" class="flex-column">
+            <dsv-linear-progress [load]="authService.apiService.nbLoaded() > 0" />
+            <section id="main-section">
+                <div class="space" style="height: 5px">&nbsp;</div>
+                <router-outlet />
+                @if (!routerService.isLoading() && !routerService.currentUrl().includes('/admin')) {
+                    <app-footer
+                        [contactEmail]="environmentService.config()?.CONTACT!"
+                        [copyright]="environmentService.config()?.COPIYRIGHT!"
+                        [withX]="false"
+                    >
+                    </app-footer>
+                }
+            </section>
+        </dsv-scroll-infinite>
     </dsv-container>
 
-    <dsv-toast />
-  </dsv-theme>
-}
+    <dsv-toast [max]="4" />
+</dsv-theme>

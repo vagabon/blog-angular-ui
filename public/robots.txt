@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+Disallow: /profile/
+Disallow: /settings/
+
+Sitemap: https://movie-keeper.fr/sitemap.xml

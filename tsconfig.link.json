@@ -1,0 +1,16 @@
+{
+    "extends": "./tsconfig.app.json",
+    "compilerOptions": {
+        "paths": {
+            "app/*": [
+                "./src/app/*"
+            ],
+            "@ng-vagabond-lab/ng-dsv": [
+                "/home/vagabond/project/boilerplate/angular-boilerplate/dist/ng-dsv"
+            ],
+            "@ng-vagabond-lab/ng-dsv/*": [
+                "/home/vagabond/project/boilerplate/angular-boilerplate/dist/ng-dsv/*"
+            ]
+        }
+    }
+}

@@ -1,0 +1,23 @@
+<dsv-card>
+    <dsv-card-header>
+        <dsv-button
+            class="round"
+            icon="ri-arrow-left-s-line"
+            color="inherit"
+            [routerLink]="blog()?.id ? '/blog/' + blog()?.id : '/blog'"
+        />
+        <h1>{{ blog()?.id ? 'Modifier' : 'Créer' }} une blog</h1>
+    </dsv-card-header>
+    <dsv-form-signal [form]="blogForm" (callback)="doSubmit()" (callbackBack)="routerService.goBack()">
+        <dsv-form-signal-input [form]="blogForm" fieldName="title" />
+        <dsv-file-upload-container
+            [image]="blogForm().value().image"
+            directory="/blog"
+            (callback)="blogForm().value.update((blog) => ({ ...blog, image: $event }))"
+        />
+        <dsv-form-signal-input [form]="blogForm" fieldName="tags" />
+        <dsv-form-signal-input [form]="blogForm" fieldName="resume" type="textarea" class="resume" />
+        <dsv-form-signal-input [form]="blogForm" fieldName="description" type="textarea" />
+        <dsv-form-signal-checkbox [form]="blogForm" fieldName="active" />
+    </dsv-form-signal>
+</dsv-card>

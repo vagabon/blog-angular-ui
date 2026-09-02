@@ -8,7 +8,8 @@
       "schematics": {
         "@schematics/angular:component": {
           "type": "component",
-          "style": "scss"
+          "style": "scss",
+          "flat": true
         },
         "@schematics/angular:directive": { "type": "directive" },
         "@schematics/angular:service": { "type": "service" },
@@ -23,7 +24,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist/blog-angular-ui",
             "index": "src/index.html",
@@ -41,13 +42,22 @@
               "node_modules/@ng-vagabond-lab/ng-dsv/assets/global.scss",
               "node_modules/@ng-vagabond-lab/ng-dsv/assets/style.scss",
               "src/styles.scss",
-              "node_modules/remixicon/fonts/remixicon.css"
+              "node_modules/remixicon/fonts/remixicon.css",
+              "node_modules/prismjs/themes/prism-tomorrow.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-javascript.min.js",
+              "node_modules/prismjs/components/prism-typescript.min.js",
+              "node_modules/prismjs/components/prism-css.min.js"
+            ],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
+            },
+            "security": {
+              "allowedHosts": ["localhost", "*.vagabond.synology.me"]
             }
           },
           "configurations": {
@@ -55,7 +65,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "1MB",
                   "maximumError": "1MB"
                 },
                 {
@@ -64,27 +74,51 @@
                   "maximumError": "8kB"
                 }
               ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": true
+              },
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": false,
               "outputHashing": "all"
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "link": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "tsConfig": "tsconfig.link.json"
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "blog-angular-ui:build:production"
             },
             "development": {
               "buildTarget": "blog-angular-ui:build:development"
+            },
+            "link": {
+              "buildTarget": "blog-angular-ui:build:link"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "poll": 500,
+            "proxyConfig": "proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"

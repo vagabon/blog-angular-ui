@@ -1,0 +1,18 @@
+<app-blog-card [blog]="blog()">
+    <dsv-button
+        class="update-button"
+        color="secondary"
+        variant="outlined"
+        icon="ri-share-line"
+        (callback)="doShare(blog()!)"
+    />
+    @if (isAdmin()) {
+        <dsv-button
+            class="update-button"
+            color="secondary"
+            variant="outlined"
+            icon="ri-tools-line"
+            [routerLink]="'/blog/update/' + blog()?.id"
+        />
+    }
+</app-blog-card>

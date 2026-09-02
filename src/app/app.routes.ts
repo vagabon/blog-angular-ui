@@ -1,20 +1,53 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '@ng-vagabond-lab/ng-dsv/modules/auth';
-import { NotFoundComponent } from './template/not-found/component/not-found.component';
+import { authGuard } from '@ng-vagabond-lab/ng-dsv/module/auth';
+import { ContactComponent } from '@ng-vagabond-lab/ng-dsv/module/contact';
+import { AccessDeniedComponent, NotFoundComponent } from '@ng-vagabond-lab/ng-dsv/template';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/news', pathMatch: 'full' },
+    { path: '', loadChildren: () => import('./module/home/home.route').then((m) => m.HomeRoute) },
+    // {
+    //     path: 'mentions-legales',
+    //     loadComponent: () =>
+    //         import('./module/common/mentions-legales/component/mentions-legales.component').then(
+    //             (m) => m.MentionsLegalesComponent,
+    //         ),
+    // },
     {
         path: 'news',
-        loadChildren: () => import('./module/news/route/news.route').then((m) => m.NewsRoute)
+        loadChildren: () => import('@ng-vagabond-lab/ng-dsv/module/news').then((m) => m.NewsRoute),
+    },
+    {
+        path: 'blog',
+        loadChildren: () => import('./module/blog/blog.route').then((m) => m.BlogRoute),
+    },
+    {
+        path: 'notification',
+        loadChildren: () =>
+            import('@ng-vagabond-lab/ng-dsv/module/notification').then((m) => m.NotificationRoute),
+        canActivate: [authGuard('USER')],
     },
     {
         path: 'admin',
         loadChildren: () => import('./module/admin/admin.route').then((m) => m.MemeRoute),
-        canActivate: [authGuard],
-        data: { role: 'ADMIN' }
+        canActivate: [authGuard('ADMIN')],
     },
     {
-        path: '**', component: NotFoundComponent
+        path: 'contact',
+        component: ContactComponent,
+        data: { contactEmail: 'contact@movie-keeper.fr' },
+    },
+    {
+        path: 'access-denied',
+        component: AccessDeniedComponent,
+        data: { contactEmail: 'gonzague.clement@gmail.com' },
+    },
+    {
+        path: 'robots.txt',
+        redirectTo: '',
+    },
+    {
+        path: '**',
+        component: NotFoundComponent,
+        data: { contactEmail: 'gonzague.clement@gmail.com' },
     },
 ];

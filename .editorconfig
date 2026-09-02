@@ -11,7 +11,13 @@ trim_trailing_whitespace = true
 [*.ts]
 quote_type = single
 ij_typescript_use_double_quotes = false
+max_line_length = 110
+ij_typescript_imports_wrap = normal
+ij_typescript_force_semicolon_style = true
 
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
+
+[*.html]
+max_line_length = 110

@@ -1,0 +1,9 @@
+<dsv-card [routerLink]="'/blog/' + blog()?.id">
+    @if (blog()?.image) {
+        <dsv-file-show url="/api/" [src]="blog()?.image ?? ''" />
+    }
+    <h2 [class.error]="!blog()?.active">{{ blog()?.title }}</h2>
+    <span class="subtitle">Le {{ blog()?.creationDate! | formatDate: true }}</span>
+    <dsv-markdown-container [data]="blog()?.resume" />
+    <a [href]="'/blog/' + blog()?.id" dsvLink>Lire la suite...</a>
+</dsv-card>

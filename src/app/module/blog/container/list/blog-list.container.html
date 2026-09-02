@@ -1,0 +1,40 @@
+<dsv-card>
+    <dsv-card-header>
+        <h2>
+            <i class="ri-file-list-3-line"></i>&nbsp;&nbsp;Blog
+            @if (blogListService.total()) {
+                ({{ blogListService.total() }})
+            }
+        </h2>
+        @if (isAdmin()) {
+            <dsv-button icon="ri-add-line" color="secondary" variant="outlined" routerLink="/blog/create" />
+        }
+    </dsv-card-header>
+    <dsv-form-reactive-searchbar [search]="blogListService.search()" (callbackSearch)="doSearch($event)" />
+</dsv-card>
+
+@if (blogListService.blog().length === 0 && (!blogListService.isLoading() || blogListService.stopFetch())) {
+    <dsv-card>
+        <p>Aucun résultat trouvé</p>
+    </dsv-card>
+} @else {
+    <dsv-scroll-infinite
+        #scroll
+        class="card-miniature"
+        [loading]="blogListService.isLoading()"
+        (callback)="doFetch()"
+    >
+        @for (blog of blogListService.blog(); track blog.id) {
+            <app-blog-card-resume [blog]="blog">
+                @if (isAdmin()) {
+                    <dsv-button
+                        class="update-button"
+                        icon="ri-tools-line"
+                        [routerLink]="'/blog/update/' + blog?.id"
+                    />
+                }
+            </app-blog-card-resume>
+        }
+        <ng-template #skeleton> </ng-template>
+    </dsv-scroll-infinite>
+}

@@ -7,13 +7,15 @@
       "app/*": [
         "./src/app/*"
       ],
-      "@share/*": [
-        "./share/*"
-      ]
     },
+    "lib": [
+      "es2023",
+      "dom"
+    ],
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
+    "preserveSymlinks": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

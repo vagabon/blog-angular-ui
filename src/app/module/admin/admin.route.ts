@@ -5,15 +5,10 @@ export const MemeRoute: Routes = [
     {
         path: ':type',
         loadComponent: () =>
-            import('@ng-vagabond-lab/ng-dsv/modules/admin').then(
-                (m) => m.AdminSearchContainer
-            ),
+            import('@ng-vagabond-lab/ng-dsv/module/admin').then((m) => m.AdminSearchContainer),
     },
     {
         path: ':type/:id',
-        loadComponent: () =>
-            import('@ng-vagabond-lab/ng-dsv/modules/admin').then(
-                (m) => m.AdminFormContainer
-            ),
+        loadComponent: () => import('@ng-vagabond-lab/ng-dsv/module/admin').then((m) => m.AdminFormContainer),
     },
 ];

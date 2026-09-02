@@ -1,0 +1,42 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    h2 {
+        text-transform: capitalize;
+    }
+
+    dsv-card {
+        margin: 5px;
+        width: calc(100% - 10px);
+        gap: 5px;
+
+        dsv-card-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 0 0 5px;
+
+            h2 {
+                margin: 0px;
+                flex: 1;
+            }
+        }
+
+        dsv-form-reactive-searchbar {
+            margin: 0;
+        }
+    }
+
+    dsv-scroll-infinite {
+
+        app-blog-card-resume {
+            width: calc(100% / 2 - 10px);
+
+            @media screen and (max-width: 600px) {
+                width: 100%;
+            }
+        }
+    }
+}

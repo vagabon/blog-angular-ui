@@ -1,0 +1,22 @@
+:host {
+
+    dsv-card-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+
+        dsv-button.round {
+            --button-border-radius: 50%;
+        }
+    }
+
+    dsv-form-signal-input {
+        --input-height: 300px;
+        --input-max-height: 300px;
+
+        &.resume {
+            --input-height: 100px;
+        }
+    }
+}

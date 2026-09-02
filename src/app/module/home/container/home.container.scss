@@ -1,0 +1,66 @@
+:host {
+    display: flex;
+    gap: 20px;
+
+    .bento {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        gap: 20px;
+
+        &>div {
+            height: 50%;
+
+            &>a {
+                margin-bottom: 10px !important;
+                font-size: 1.3rem !important;
+            }
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding-left: 10px;
+                list-style: none;
+
+                li {
+                    a {
+                        display: flex;
+                        gap: 15px;
+                        align-items: center;
+
+                        &>div {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 4px;
+
+                            span:nth-child(2) {
+                                font-size: 0.9rem;
+                                color: var(--subtitle);
+                            }
+                        }
+
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+
+                        &:hover {
+                            transition: all .1s ease-in-out;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+    }
+}

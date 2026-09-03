@@ -52,7 +52,7 @@ export class AppComponent extends BaseMainContainer {
         effect(() => {
             if (this.authService.userConnected()) {
                 this.fcmNotificationService.registerAndGetToken();
-                this.fcmNotificationService.listenForeground();
+                //this.fcmNotificationService.listenForeground();
 
                 this.authService.apiService.post('/notification/send', {}, (data) => console.log(data));
             }

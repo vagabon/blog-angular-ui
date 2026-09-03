@@ -6,13 +6,13 @@ import { AccessDeniedComponent, NotFoundComponent } from '@ng-vagabond-lab/ng-ds
 export const routes: Routes = [
     { path: '', loadChildren: () => import('./module/home/home.route').then((m) => m.HomeRoute) },
     { path: 'home', redirectTo: '/', pathMatch: 'full' },
-    // {
-    //     path: 'mentions-legales',
-    //     loadComponent: () =>
-    //         import('./module/common/mentions-legales/component/mentions-legales.component').then(
-    //             (m) => m.MentionsLegalesComponent,
-    //         ),
-    // },
+    {
+        path: 'mentions-legales',
+        loadComponent: () =>
+            import('./module/mentions-legales/component/mentions-legales.component').then(
+                (m) => m.MentionsLegalesComponent,
+            ),
+    },
     {
         path: 'news',
         loadChildren: () => import('@ng-vagabond-lab/ng-dsv/module/news').then((m) => m.NewsRoute),
@@ -45,15 +45,15 @@ export const routes: Routes = [
     {
         path: 'access-denied',
         component: AccessDeniedComponent,
-        data: { contactEmail: 'gonzague.clement@gmail.com' },
-    },
-    {
-        path: 'robots.txt',
-        redirectTo: '',
+        data: { contactEmail: 'vagabond.git@gmail.com' },
     },
     {
         path: '**',
         component: NotFoundComponent,
-        data: { contactEmail: 'gonzague.clement@gmail.com' },
+        data: { contactEmail: 'vagabond.git@gmail.com' },
+    },
+    {
+        path: 'robots.txt',
+        redirectTo: '',
     },
 ];

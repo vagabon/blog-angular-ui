@@ -12,7 +12,7 @@ import AUTH_EN from './locale/en/auth.json';
 import EN from './locale/en/en.json';
 import MENU_EN from './locale/en/menu.json';
 
-export const initializeApp = () => {
+export const initializeApp_ = () => {
     const adminService = inject(AdminService);
     adminService.tabs.set(AdminConf);
     const environmentService = inject(EnvironmentService);

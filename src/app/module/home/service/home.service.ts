@@ -12,6 +12,9 @@ export class HomeService extends BaseApiService {
 
     getNews() {
         !this.news() && this.apiService.findById<NewsDto>('news', '1', (news) => this.news.set(news));
+    }
+
+    getLastNews() {
         this.lastNews().length === 0 &&
             this.apiService.findBy<PageableDto<NewsDto[]>>(
                 '/news/findBy',
@@ -25,6 +28,9 @@ export class HomeService extends BaseApiService {
                 },
                 (news) => this.lastNews.set(news.content),
             );
+    }
+
+    getLastBlog() {
         this.lastBlog().length === 0 &&
             this.apiService.findBy<PageableDto<BlogDto[]>>(
                 '/blog/findBy',

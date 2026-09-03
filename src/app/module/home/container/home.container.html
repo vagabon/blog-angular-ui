@@ -9,7 +9,13 @@
             @for (news of homeService.lastNews(); track news.id) {
                 <li>
                     <a [href]="'/news/' + news.id" dsvLink>
-                        <img [src]="'/api/file/download?fileName=' + news.image" />
+                        <img
+                            [src]="
+                                news.image
+                                    ? '/api/file/download?fileName=' + news.image
+                                    : '/images/vagabond.png'
+                            "
+                        />
                         <div>
                             <span>{{ news.title }}</span>
                             <span>{{ news.creationDate! | formatDate: true }} </span>
@@ -26,7 +32,13 @@
             @for (blog of homeService.lastBlog(); track blog.id) {
                 <li>
                     <a [href]="'/blog/' + blog.id" dsvLink>
-                        <img [src]="'/api/file/download?fileName=' + blog.image" />
+                        <img
+                            [src]="
+                                blog.image
+                                    ? '/api/file/download?fileName=' + blog.image
+                                    : '/images/vagabond.png'
+                            "
+                        />
                         <div>
                             <span>{{ blog.title }}</span>
                             <span>{{ blog.creationDate! | formatDate: true }} </span>

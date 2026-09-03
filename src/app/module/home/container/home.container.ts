@@ -18,5 +18,11 @@ export class HomeContainer {
         effect(() => {
             this.homeService.getNews();
         });
+        effect(() => {
+            this.homeService.getLastNews();
+        });
+        effect(() => {
+            this.homeService.getLastBlog();
+        });
     }
 }

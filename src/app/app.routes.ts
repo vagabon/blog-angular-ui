@@ -5,6 +5,7 @@ import { AccessDeniedComponent, NotFoundComponent } from '@ng-vagabond-lab/ng-ds
 
 export const routes: Routes = [
     { path: '', loadChildren: () => import('./module/home/home.route').then((m) => m.HomeRoute) },
+    { path: 'home', redirectTo: '/', pathMatch: 'full' },
     // {
     //     path: 'mentions-legales',
     //     loadComponent: () =>

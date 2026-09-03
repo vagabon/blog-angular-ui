@@ -9,27 +9,20 @@ self.addEventListener('activate', (event) => {
     event.waitUntil(self.clients.claim());
 });
 
-firebase.initializeApp({
-    apiKey: 'AIzaSyDrtu5l_v4aQqlrqoqqrNq9ZvcsnMt8984',
-    authDomain: 'blogui-76509.firebaseapp.com',
-    projectId: 'blogui-76509',
-    storageBucket: 'blogui-76509.firebasestorage.app',
-    messagingSenderId: '121875976246',
-    appId: '1:121875976246:web:6ea6c60230c62037f98897',
-    measurementId: 'G-B8Z1ND3WG6',
-});
-
-const messaging = firebase.messaging();
-
-messaging.onBackgroundMessage((payload) => {
-    const notificationTitle = payload.notification?.title || 'Notification';
-    const notificationOptions = {
-        body: payload.notification?.body || '',
+self.addEventListener('push', (event) => {
+    const data = event.data.json();
+    const options = {
+        body: data.notification.body,
         icon: '/images/logo.png',
         data: {
-            url: payload.data?.url || '/',
+            url: data.data.url,
         },
     };
 
-    self.registration.showNotification(notificationTitle, notificationOptions);
+    event.waitUntil(self.registration.showNotification(data.notification.title, options));
+});
+
+self.addEventListener('notificationclick', function (event) {
+    event.notification.close();
+    event.waitUntil(clients.openWindow(event.notification.data.url));
 });

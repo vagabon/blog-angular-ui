@@ -28,6 +28,11 @@ export const routes: Routes = [
         canActivate: [authGuard('USER')],
     },
     {
+        path: 'profil',
+        loadChildren: () => import('./module/profil/profil.route').then((m) => m.ProfilRoute),
+        canActivate: [authGuard('USER')],
+    },
+    {
         path: 'admin',
         loadChildren: () => import('./module/admin/admin.route').then((m) => m.MemeRoute),
         canActivate: [authGuard('ADMIN')],

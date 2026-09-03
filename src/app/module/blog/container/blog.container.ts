@@ -2,7 +2,6 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BaseRouteContainer } from '@ng-vagabond-lab/ng-dsv/base';
 import { DsvButtonComponent } from '@ng-vagabond-lab/ng-dsv/ds/button';
-import { AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
 import { BlogCardComponent } from '../component/card/blog-card.component';
 import { BlogDto } from '../dto/blog.dto';
 import { BlogService } from '../service/blog.service';
@@ -14,13 +13,12 @@ import { BlogService } from '../service/blog.service';
     styleUrl: './blog.container.scss',
 })
 export class BlogContainer extends BaseRouteContainer {
-    readonly auhService = inject(AuthService);
     readonly blogService = inject(BlogService);
 
     readonly blogId = signal<number>(0);
     readonly blog = signal<BlogDto | undefined>(undefined);
 
-    readonly isAdmin = computed<boolean>(() => this.auhService.hasRole('ADMIN'));
+    readonly isAdmin = computed<boolean>(() => this.authService.hasRole('ADMIN'));
 
     constructor() {
         super();

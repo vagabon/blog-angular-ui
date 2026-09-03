@@ -1,0 +1,31 @@
+<dsv-card class="header">
+    <div class="avatar">
+        <img [src]="user()?.avatar" alt="Profile" referrerpolicy="no-referrer" />
+    </div>
+    <div class="profil-name">
+        <b>{{ user()?.username }}</b>
+        <span class="subtitle">Inscrit le {{ user()?.creationDate ?? '' | formatDate: true }}</span>
+    </div>
+</dsv-card>
+
+<div class="profile-container">
+    <div>TODOLIST</div>
+    <div>
+        <div>
+            <span>Créé</span><span>{{ profilService.profil()?.nbTodolist }}</span>
+        </div>
+        <div>
+            <span>Items</span><span>{{ profilService.profil()?.nbItems }}</span>
+        </div>
+        <div>
+            <span>Checked</span><span>{{ profilService.profil()?.nbItemsChecked }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="buttons">
+    @if (isAdmin()) {
+        <dsv-button color="secondary" (callback)="profilService.sendNotification()">Send notif</dsv-button>
+        <dsv-button color="secondary" (callback)="profilService.sendEmail()">Send email</dsv-button>
+    }
+</div>

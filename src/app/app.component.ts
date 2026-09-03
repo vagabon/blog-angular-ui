@@ -1,6 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-import { getToken, Messaging, onMessage } from '@angular/fire/messaging';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BaseMainContainer } from '@ng-vagabond-lab/ng-dsv/base';
 import { DsvContainerComponent } from '@ng-vagabond-lab/ng-dsv/ds/container';
@@ -10,13 +8,14 @@ import { MenuService } from '@ng-vagabond-lab/ng-dsv/ds/menu';
 import { DsvScrollInfiniteContainer } from '@ng-vagabond-lab/ng-dsv/ds/scroll';
 import { DsvThemeComponent } from '@ng-vagabond-lab/ng-dsv/ds/theme';
 import { DsvToastComponent } from '@ng-vagabond-lab/ng-dsv/ds/toast';
-import { AuthComponent, AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
+import { AuthComponent } from '@ng-vagabond-lab/ng-dsv/module/auth';
 import {
     NotificationButtonContainer,
     NotificationService,
 } from '@ng-vagabond-lab/ng-dsv/module/notification';
 import { FooterComponent, MenuContainer, MenuDto } from '@ng-vagabond-lab/ng-dsv/template';
 import { menu } from './conf/menu.conf';
+import { NotificationPushService } from './module/notification/service/notification-push.service';
 
 @Component({
     selector: 'app-root',
@@ -38,7 +37,7 @@ import { menu } from './conf/menu.conf';
 export class AppComponent extends BaseMainContainer {
     readonly menuService = inject(MenuService);
     readonly notificationService = inject(NotificationService);
-    readonly fcmNotificationService = inject(FcmNotificationService);
+    readonly notificationPushService = inject(NotificationPushService);
 
     readonly menu = signal<MenuDto>(menu);
 
@@ -51,48 +50,8 @@ export class AppComponent extends BaseMainContainer {
         });
         effect(() => {
             if (this.authService.userConnected()) {
-                this.fcmNotificationService.registerAndGetToken();
-                //this.fcmNotificationService.listenForeground();
+                this.notificationPushService.registerAndGetToken();
             }
-        });
-    }
-}
-
-@Injectable({ providedIn: 'root' })
-export class FcmNotificationService {
-    private platformId = inject(PLATFORM_ID);
-    private messaging = inject(Messaging);
-    private authService = inject(AuthService);
-
-    async registerAndGetToken(): Promise<string | null> {
-        if (!isPlatformBrowser(this.platformId)) {
-            return null;
-        }
-        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-        console.log(registration);
-
-        const token = await getToken(this.messaging, {
-            vapidKey:
-                'BABz3sjgsFLZmHK6F1HZ3gktG-48JXPJPmDLn1yvKJMIJTa_WGzDVb-xvxQN_7a9qo06jM7YE-BKU1P4a7COaZY',
-            serviceWorkerRegistration: registration,
-        });
-
-        this.authService.apiService.put(
-            '/notification/token/user',
-            {
-                userId: this.authService.userConnected()!.id,
-                token: token,
-            },
-            () => {
-                this.authService.apiService.post('/notification/send', {});
-            },
-        );
-        return token;
-    }
-
-    listenForeground() {
-        onMessage(this.messaging, (payload) => {
-            alert(`Notification reçue : ${payload.notification?.title} - ${payload.notification?.body}`);
         });
     }
 }

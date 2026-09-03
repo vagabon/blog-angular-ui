@@ -10,7 +10,7 @@ import { provideMarkdown } from 'ngx-markdown';
 import { initializeApp_ } from './app.initializer';
 import { routes } from './app.routes';
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: 'AIzaSyDrtu5l_v4aQqlrqoqqrNq9ZvcsnMt8984',
     authDomain: 'blogui-76509.firebaseapp.com',
     projectId: 'blogui-76509',

@@ -23,7 +23,7 @@ export default defineConfig({
                 '**/index.ts',
                 '**/main*.ts',
                 '**/*server*.ts',
-                '**/*.config.ts',
+                '**/*.conf*.ts',
                 '**/*.initializer.ts',
                 '**/*.conf.ts',
                 '**/*.dto.ts',

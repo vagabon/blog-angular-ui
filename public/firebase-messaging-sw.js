@@ -1,6 +1,14 @@
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
+self.addEventListener('install', () => {
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(self.clients.claim());
+});
+
 firebase.initializeApp({
     apiKey: 'AIzaSyDrtu5l_v4aQqlrqoqqrNq9ZvcsnMt8984',
     authDomain: 'blogui-76509.firebaseapp.com',
@@ -15,7 +23,6 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification?.title || 'Notification';
-
     const notificationOptions = {
         body: payload.notification?.body || '',
         icon: '/images/logo.png',
@@ -25,24 +32,4 @@ messaging.onBackgroundMessage((payload) => {
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);
-});
-
-self.addEventListener('notificationclick', function (event) {
-    event.notification.close();
-
-    const targetUrl = event.notification.data?.url || '/';
-
-    event.waitUntil(
-        clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
-            for (let client of windowClients) {
-                if (client.url.includes(self.location.origin) && 'focus' in client) {
-                    client.focus();
-                    return client.navigate(targetUrl);
-                }
-            }
-            if (clients.openWindow) {
-                return clients.openWindow(targetUrl);
-            }
-        }),
-    );
 });

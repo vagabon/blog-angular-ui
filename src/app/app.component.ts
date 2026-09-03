@@ -53,8 +53,6 @@ export class AppComponent extends BaseMainContainer {
             if (this.authService.userConnected()) {
                 this.fcmNotificationService.registerAndGetToken();
                 //this.fcmNotificationService.listenForeground();
-
-                this.authService.apiService.post('/notification/send', {}, (data) => console.log(data));
             }
         });
     }
@@ -71,6 +69,7 @@ export class FcmNotificationService {
             return null;
         }
         const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+        console.log(registration);
 
         const token = await getToken(this.messaging, {
             vapidKey:
@@ -78,10 +77,16 @@ export class FcmNotificationService {
             serviceWorkerRegistration: registration,
         });
 
-        this.authService.apiService.put('/notification/token/user', {
-            userId: this.authService.userConnected()!.id,
-            token: token,
-        });
+        this.authService.apiService.put(
+            '/notification/token/user',
+            {
+                userId: this.authService.userConnected()!.id,
+                token: token,
+            },
+            () => {
+                this.authService.apiService.post('/notification/send', {});
+            },
+        );
         return token;
     }
 

@@ -12,6 +12,7 @@ header .title-1 {
 
 .card-miniature {
     flex-wrap: wrap;
+    flex-basis: content;
 }
 
 .markdown {

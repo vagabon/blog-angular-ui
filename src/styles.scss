@@ -30,3 +30,7 @@ app-root {
     height: 100vh;
     height: var(--app-height, 100dvh);
 }
+
+dsv-scroll-infinite {
+    max-height: 100dvh !important;
+}

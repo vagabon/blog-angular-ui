@@ -49,6 +49,7 @@ export class AppComponent extends BaseMainContainer {
 
     onDragEnded(event: CdkDragEnd) {
         const distanceX = event.distance.x;
+        console.log(distanceX);
 
         // Si on a glissé vers la gauche de plus de 80px -> Fermer
         if (distanceX < -80) {
@@ -58,6 +59,7 @@ export class AppComponent extends BaseMainContainer {
             this.openMenu();
         }
     }
+
     closeMenu() {
         this.isOpen = false;
         // -280px correspond à la largeur exacte de ton menu en CSS
@@ -69,8 +71,21 @@ export class AppComponent extends BaseMainContainer {
         this.menuPosition = { x: 0, y: 0 };
     }
 
+    private resizeListener?: () => void;
+
     constructor() {
         super();
+        effect(() => {
+            if (this.environmentService.platformService.isPlatformBrowser() && window.visualViewport) {
+                this.resizeListener = () => {
+                    const vh = window.visualViewport?.height;
+                    document.documentElement.style.setProperty('--app-height', `${vh}px`);
+                };
+
+                window.visualViewport.addEventListener('resize', this.resizeListener);
+                this.resizeListener();
+            }
+        });
         effect(() => {
             if (this.authService.userConnected() && this.routerService.currentUrl()) {
                 this.notificationService.fetchNbRead();
@@ -81,5 +96,10 @@ export class AppComponent extends BaseMainContainer {
                 this.notificationPushService.registerAndGetToken();
             }
         });
+    }
+    ngOnDestroy() {
+        if (this.resizeListener && window.visualViewport) {
+            window.visualViewport.removeEventListener('resize', this.resizeListener);
+        }
     }
 }

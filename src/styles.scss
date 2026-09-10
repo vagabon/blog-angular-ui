@@ -26,6 +26,7 @@ header .title-1 {
     }
 }
 
-dsv-scroll-infinite {
-    max-height: 100dvh !important;
+app-root {
+    height: 100vh;
+    height: var(--app-height, 100dvh);
 }

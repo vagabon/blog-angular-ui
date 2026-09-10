@@ -1,0 +1,10 @@
+<app-list-modal-form
+    [userConnected]="authService.userConnected()"
+    [listSelected]="todolistService.todolistSelected()"
+    (callback)="todolistService.addTodolist($event)"
+/>
+
+<app-list-modal-delete
+    [item]="todolistService.todolistSelected()!"
+    (callback)="todolistService.deleteTodolist()"
+/>

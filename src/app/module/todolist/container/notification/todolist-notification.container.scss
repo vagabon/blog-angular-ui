@@ -1,0 +1,40 @@
+:host {
+
+    dsv-modal {
+        --modal-top: 20%;
+        --modal-height: 50vh;
+        --modal-content-padding: 0px;
+        --modal-min-height: 50vh;
+        --modal-overflow: hidden;
+
+        dsv-card {
+            margin: 30px 5px;
+            width: calc(100% - 12px);
+        }
+
+        dsv-form-reactive-searchbar {
+            margin: 5px !important;
+            width: calc(100% - 10px);
+        }
+
+        dsv-scroll-infinite {
+            margin-left: 5px;
+            padding: 5px;
+            width: calc(100% - 15px);
+            height: calc(100% - 55px);
+            flex-direction: column;
+
+            .notification-content {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                padding: 5px;
+                border-bottom: 1px solid var(--border);
+
+                .subject {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+}

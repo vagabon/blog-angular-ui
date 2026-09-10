@@ -1,0 +1,44 @@
+<dsv-card>
+    <dsv-card-header>
+        <dsv-button class="round" icon="ri-arrow-left-s-line" color="inherit" routerLink="/todolist" />
+        @if (todolist()?.name) {
+            <h2>{{ todolist()?.name }} ({{ todolist()?.nbItems }})</h2>
+        }
+
+        <app-todolist-notification-container [todolist]="todolist()" />
+    </dsv-card-header>
+</dsv-card>
+
+<dsv-scroll-infinite
+    #scroll
+    class="card-miniature"
+    [loading]="true"
+    cdkDropList
+    (cdkDropListDropped)="doDrop($event)"
+>
+    @for (item of todolistItems(); track item.id) {
+        <app-todolist-item
+            cdkDrag
+            [todolistItem]="item"
+            (callback)="doChecked($event)"
+            (callbackDelete)="todolistService.doDeleteSelectItem($event)"
+        />
+    }
+    <ng-template #skeleton></ng-template>
+</dsv-scroll-infinite>
+
+<div class="item-form">
+    <dsv-form-signal-input
+        [form]="itemForm"
+        fieldName="name"
+        placeholder="Nouveau..."
+        [withLabel]="false"
+        (callbackSend)="doCreate()"
+    />
+    <dsv-button icon="ri-send-plane-2-line" color="secondary" variant="text" (callback)="doCreate()" />
+</div>
+
+<app-list-modal-delete
+    [item]="todolistService.todolistItemSelected()!"
+    (callback)="todolistService.deleteTodolistItem()"
+/>

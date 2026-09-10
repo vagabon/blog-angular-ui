@@ -5,16 +5,15 @@ import { AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
 
 @Service()
 export class NotificationPushService {
-    private platformId = inject(PLATFORM_ID);
-    private messaging = inject(Messaging);
-    private authService = inject(AuthService);
+    private readonly platformId = inject(PLATFORM_ID);
+    private readonly messaging = inject(Messaging);
+    private readonly authService = inject(AuthService);
 
     async registerAndGetToken(): Promise<string | null> {
         if (!isPlatformBrowser(this.platformId)) {
             return null;
         }
         const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-        console.log(registration);
 
         const token = await getToken(this.messaging, {
             vapidKey:

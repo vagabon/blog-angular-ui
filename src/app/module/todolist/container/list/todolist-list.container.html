@@ -1,0 +1,57 @@
+<dsv-card>
+    <dsv-card-header>
+        <i class="ri-file-list-line"></i>
+        <h2>Todolist ({{ todolistService.todolists().length }})</h2>
+
+        <dsv-button
+            color="secondary"
+            variant="outlined"
+            icon="ri-add-line"
+            libelle="Créer une liste"
+            (callback)="todolistService.doSelectList()"
+        />
+    </dsv-card-header>
+    <dsv-form-signal-searchbar [search]="todolistService.search()" (callbackSearch)="doFetch($event)" />
+</dsv-card>
+
+@if (todolistService.todolists().length === 0 && todolistService.loaded()) {
+    <dsv-card>
+        <p>Aucun résultat trouvé</p>
+    </dsv-card>
+} @else {
+    <dsv-scroll-infinite #scroll class="card-miniature" [loading]="true">
+        @for (todolist of todolistService.todolists(); track todolist.id) {
+            <div class="item">
+                <div class="content">
+                    <dsv-avatar [avatar]="todolist.userCreate.avatar ?? todolist.userCreate.username ?? ''" />
+                    <a [href]="'/todolist/' + todolist.id" class="name">
+                        <app-todolist-icon [icon]="todolist.avatar" />
+                        {{ todolist.name }}
+                    </a>
+                    <div class="actions">
+                        <dsv-chip
+                            color="secondary"
+                            [text]="todolist.nbCheckedItems + ' / ' + todolist.nbItems"
+                        />
+                        <dsv-button
+                            color="secondary"
+                            variant="text"
+                            icon="ri-edit-line"
+                            (callback)="todolistService.doSelectList(todolist)"
+                        />
+                        <dsv-button
+                            color="error"
+                            variant="text"
+                            icon="ri-delete-bin-7-line"
+                            (callback)="todolistService.doDeleteSelectList(todolist)"
+                        />
+                    </div>
+                </div>
+                <div class="divider"></div>
+            </div>
+        }
+        <ng-template #skeleton></ng-template>
+    </dsv-scroll-infinite>
+}
+
+<app-list-modal-form-container />

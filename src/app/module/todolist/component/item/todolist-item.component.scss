@@ -1,0 +1,63 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-right: 10px;
+
+    .content {
+        display: flex;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .checkbox {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+
+        dsv-form-signal-checkbox {
+            margin: 0px !important;
+        }
+    }
+
+    dsv-avatar {
+        margin: 0 10px 0 5px !important;
+        width: 30px;
+        height: 30px;
+    }
+
+    .name {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        gap: 10px;
+
+        i {
+            font-size: 1.4rem;
+        }
+
+        &:hover {
+            transform: scale(1.01);
+        }
+    }
+
+    .actions {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    dsv-chip {
+        font-weight: 500;
+        font-size: 0.9rem;
+        min-width: 35px;
+    }
+
+    .divider {
+        margin: 0px 0px 0px 25px;
+        flex-shrink: 0;
+        border-width: 0px 0px thin;
+        border-style: solid;
+        border-color: var(--border);
+    }
+}

@@ -1,0 +1,18 @@
+:host {
+    .input-icon {
+        display: flex;
+        gap: 10px;
+
+        i {
+            display: flex;
+            padding-top: 25px;
+            font-size: 1.5rem;
+        }
+    }
+
+    dsv-modal {
+        --modal-top: 32% !important;
+        --modal-overlay-z-index: 102 !important;
+        --modal-z-index: 103 !important;
+    }
+}

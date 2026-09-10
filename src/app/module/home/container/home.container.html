@@ -15,6 +15,7 @@
                                     ? '/api/file/download?fileName=' + news.image
                                     : '/images/vagabond.png'
                             "
+                            [alt]="news.title"
                         />
                         <div>
                             <span>{{ news.title }}</span>
@@ -38,6 +39,7 @@
                                     ? '/api/file/download?fileName=' + blog.image
                                     : '/images/vagabond.png'
                             "
+                            [alt]="blog.title"
                         />
                         <div>
                             <span>{{ blog.title }}</span>

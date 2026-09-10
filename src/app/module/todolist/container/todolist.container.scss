@@ -1,0 +1,105 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+
+    dsv-card {
+        margin: 15px 10px;
+        width: calc(100% - 20px);
+        gap: 5px;
+
+        dsv-card-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 0 5px;
+            width: calc(100% - 5px);
+            gap: 5px;
+
+            h2 {
+                margin: 0px;
+                flex: 1;
+            }
+
+            dsv-button.round {
+                --button-border-radius: 50%;
+            }
+        }
+
+        dsv-form-reactive-searchbar {
+            margin: 0;
+        }
+    }
+
+    dsv-scroll-infinite {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 5px;
+        flex-wrap: unset;
+        flex: 1;
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-right: 10px;
+
+            .content {
+                display: flex;
+                width: 100%;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.01);
+                }
+            }
+
+            dsv-avatar {
+                margin: 0 10px 0 5px !important;
+                width: 30px;
+                height: 30px;
+            }
+
+            .name {
+                display: flex;
+                align-items: center;
+                flex: 1;
+                gap: 10px;
+
+                i {
+                    font-size: 1.4rem;
+                }
+            }
+
+            .actions {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            dsv-chip {
+                font-weight: 500;
+                font-size: 0.9rem;
+                min-width: 35px;
+            }
+
+            .divider {
+                margin: 0px 0px 0px 25px;
+                flex-shrink: 0;
+                border-width: 0px 0px thin;
+                border-style: solid;
+                border-color: var(--border);
+            }
+        }
+    }
+
+    .item-form {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 10px);
+        margin: 10px 0;
+        gap: 5px;
+    }
+}

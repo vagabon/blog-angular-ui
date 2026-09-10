@@ -1,0 +1,24 @@
+<div class="content">
+    <div #checkbox class="checkbox">
+        <dsv-form-signal-checkbox
+            [form]="readForm"
+            fieldName="checked"
+            [withLabel]="false"
+            (callbackChange)="callback.emit(todolistItem()!)"
+        />
+    </div>
+    <div class="name" (click)="triggerCheckbox()" (keyup)="triggerCheckbox()">
+        <app-todolist-icon [icon]="todolistItem()?.todolist.avatar ?? ''" />
+        {{ todolistItem()?.name }}
+    </div>
+    <div class="actions">
+        <dsv-button color="secondary" variant="text" icon="ri-edit-line" />
+        <dsv-button
+            color="error"
+            variant="text"
+            icon="ri-delete-bin-7-line"
+            (callback)="callbackDelete.emit(todolistItem()!)"
+        />
+    </div>
+</div>
+<div class="divider"></div>

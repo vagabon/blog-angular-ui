@@ -1,0 +1,13 @@
+<dsv-modal
+    [id]="modalName()"
+    [titleText]="(listForm().value().id === undefined ? 'Créer' : 'Modifier') + ' une liste'"
+    class="modal-form"
+>
+    <dsv-form-signal [form]="listForm" (callback)="doSubmit()" textValid="ENREGISTRER">
+        <dsv-form-signal-input [form]="listForm" fieldName="name" />
+        <div class="input-icon">
+            <i [class]="listForm.avatar().value()"></i>
+            <dsv-form-signal-select [form]="listForm" fieldName="avatar" [list]="icons()" />
+        </div>
+    </dsv-form-signal>
+</dsv-modal>

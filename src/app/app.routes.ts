@@ -22,6 +22,10 @@ export const routes: Routes = [
         loadChildren: () => import('./module/blog/blog.route').then((m) => m.BlogRoute),
     },
     {
+        path: 'todolist',
+        loadChildren: () => import('./module/todolist/todolist.route').then((m) => m.TodolistRoute),
+    },
+    {
         path: 'notification',
         loadChildren: () =>
             import('@ng-vagabond-lab/ng-dsv/module/notification').then((m) => m.NotificationRoute),

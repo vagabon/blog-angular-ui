@@ -1,0 +1,26 @@
+<dsv-modal-button [modalName]="modalName()" icon="ri-info-i" color="secondary" variant="outlined">
+    <dsv-modal [id]="modalName()" [titleText]="todolist()?.name ?? ''" class="modal-search">
+        <dsv-form-reactive-searchbar
+            [search]="listItemNotificationService.search()"
+            (callbackSearch)="doSearch($event)"
+        />
+
+        @if (
+            listItemNotificationService.notifications().length === 0 &&
+            !listItemNotificationService.isLoading()
+        ) {
+            <dsv-card>
+                <p>Aucun résultat trouvé</p>
+            </dsv-card>
+        } @else {
+            <dsv-scroll-infinite [loading]="listItemNotificationService.isLoading()" (callback)="doFetch()">
+                @for (notification of listItemNotificationService.notifications(); track notification.id) {
+                    <div class="notification-content">
+                        <div>{{ notification.message }}</div>
+                        <div class="subtitle">{{ notification.creationDate! | formatDate: true }}</div>
+                    </div>
+                }
+            </dsv-scroll-infinite>
+        }
+    </dsv-modal>
+</dsv-modal-button>

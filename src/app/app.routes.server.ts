@@ -10,6 +10,10 @@ export const serverRoutes: ServerRoute[] = [
         renderMode: RenderMode.Server,
     },
     {
+        path: 'todolist/**',
+        renderMode: RenderMode.Server,
+    },
+    {
         path: 'notification/**',
         renderMode: RenderMode.Client,
     },

@@ -1,0 +1,9 @@
+<dsv-modal-alert
+    [id]="modalName()"
+    [titleText]="title()"
+    [text]="text()"
+    button="Oui"
+    buttonClose="Non"
+    (callback)="callback.emit(item())"
+>
+</dsv-modal-alert>

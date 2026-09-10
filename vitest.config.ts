@@ -19,7 +19,6 @@ export default defineConfig({
             reporter: ['text', 'lcov', 'json', 'html'],
             include: ['src/**/*.ts'],
             exclude: [
-                '**/.storybook/**',
                 '**/index.ts',
                 '**/main*.ts',
                 '**/*server*.ts',
@@ -34,11 +33,11 @@ export default defineConfig({
     },
     server: {
         fs: {
-            deny: ['dist/**'],
+            deny: ['**/dist/**'],
         },
     },
     optimizeDeps: {
-        exclude: ['dist/**'],
+        exclude: ['dist'],
     },
     resolve: {
         alias: {

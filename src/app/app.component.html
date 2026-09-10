@@ -9,7 +9,14 @@
 
     <dsv-container [column]="true">
         <nav>
-            <app-menu-container [menu]="menu()"> </app-menu-container>
+            <app-menu-container
+                [menu]="menu()"
+                cdkDrag
+                cdkDragLockAxis="x"
+                [cdkDragFreeDragPosition]="menuPosition"
+                (cdkDragEnded)="onDragEnded($event)"
+            >
+            </app-menu-container>
         </nav>
         <dsv-scroll-infinite id="main-scroll" class="flex-column">
             <dsv-linear-progress [load]="authService.apiService.nbLoaded() > 0" />

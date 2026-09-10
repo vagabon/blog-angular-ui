@@ -1,3 +1,4 @@
+import { CdkDragEnd, DragDropModule } from '@angular/cdk/drag-drop';
 import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BaseMainContainer } from '@ng-vagabond-lab/ng-dsv/base';
@@ -31,6 +32,7 @@ import { NotificationPushService } from './module/notification/service/notificat
         FooterComponent,
         RouterOutlet,
         NotificationButtonContainer,
+        DragDropModule,
     ],
     templateUrl: './app.component.html',
 })
@@ -40,6 +42,32 @@ export class AppComponent extends BaseMainContainer {
     readonly notificationPushService = inject(NotificationPushService);
 
     readonly menu = signal<MenuDto>(menu);
+
+    isOpen = true;
+
+    menuPosition = { x: 0, y: 0 }; // Déclenché quand le pouce lâche l'écran
+
+    onDragEnded(event: CdkDragEnd) {
+        const distanceX = event.distance.x;
+
+        // Si on a glissé vers la gauche de plus de 80px -> Fermer
+        if (distanceX < -80) {
+            this.closeMenu();
+        } else {
+            // Sinon, on remet le menu en position ouverte
+            this.openMenu();
+        }
+    }
+    closeMenu() {
+        this.isOpen = false;
+        // -280px correspond à la largeur exacte de ton menu en CSS
+        this.menuPosition = { x: -280, y: 0 };
+    }
+
+    openMenu() {
+        this.isOpen = true;
+        this.menuPosition = { x: 0, y: 0 };
+    }
 
     constructor() {
         super();

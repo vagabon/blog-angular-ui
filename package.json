@@ -23,7 +23,7 @@
     "@angular/platform-browser": "^22.1.6",
     "@angular/platform-server": "^22.1.6",
     "@angular/router": "^22.1.6",
-    "@angular/ssr": "^22.1.7",
+    "@angular/ssr": "^22.1.8",
     "@ngx-translate/core": "^18.0.0",
     "express": "^5.2.1",
     "remixicon": "^4.9.1",
@@ -31,11 +31,11 @@
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^2.7.2",
-    "@angular/build": "^22.1.7",
-    "@angular/cli": "^22.1.7",
+    "@angular/build": "^22.1.8",
+    "@angular/cli": "^22.1.8",
     "@angular/compiler": "^22.1.6",
     "@angular/compiler-cli": "^22.1.6",
-    "@ng-vagabond-lab/ng-dsv": "^0.2.53",
+    "@ng-vagabond-lab/ng-dsv": "^0.2.55",
     "@types/express": "^5.0.6",
     "@types/prismjs": "^1.26.6",
     "@vitest/coverage-v8": "^5.0.0",
@@ -51,7 +51,7 @@
     "firebase": "^12.19.0",
     "prismjs": "^1.30.0",
     "sonar-scanner": "^3.1.0",
-    "typescript": "~6.0.3",
+    "typescript": "^6.0.3",
     "vitest": "^5.0.0"
   }
 }

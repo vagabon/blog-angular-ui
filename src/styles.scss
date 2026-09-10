@@ -1,8 +1,3 @@
-html,
-body {
-    height: 100dvh !important;
-}
-
 dsv-theme {
     --primary: #c2612d !important;
 }
@@ -18,19 +13,4 @@ header .title-1 {
 .card-miniature {
     flex-wrap: wrap;
     flex-basis: content;
-}
-
-.markdown {
-    p {
-        text-align: left;
-    }
-}
-
-app-root {
-    height: 100vh;
-    height: var(--app-height, 100dvh);
-}
-
-dsv-scroll-infinite {
-    max-height: 100dvh !important;
 }

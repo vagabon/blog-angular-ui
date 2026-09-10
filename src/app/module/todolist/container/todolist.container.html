@@ -19,6 +19,7 @@
     @for (item of todolistItems(); track item.id) {
         <app-todolist-item
             cdkDrag
+            [cdkDragStartDelay]="{ touch: 300, mouse: 0 }"
             [todolistItem]="item"
             (callback)="doChecked($event)"
             (callbackDelete)="todolistService.doDeleteSelectItem($event)"

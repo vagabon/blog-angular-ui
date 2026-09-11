@@ -1,4 +1,3 @@
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BaseMainContainer } from '@ng-vagabond-lab/ng-dsv/base';
@@ -33,7 +32,6 @@ import { NotificationPushService } from './module/notification/service/notificat
         FooterComponent,
         RouterOutlet,
         NotificationButtonContainer,
-        DragDropModule,
         PlatformSwipeDirective,
     ],
     templateUrl: './app.component.html',

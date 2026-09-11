@@ -35,7 +35,7 @@
     "@angular/cli": "^22.1.8",
     "@angular/compiler": "^22.1.6",
     "@angular/compiler-cli": "^22.1.6",
-    "@ng-vagabond-lab/ng-dsv": "^0.2.55",
+    "@ng-vagabond-lab/ng-dsv": "^0.2.56",
     "@types/express": "^5.0.6",
     "@types/prismjs": "^1.26.6",
     "@vitest/coverage-v8": "^5.0.0",

@@ -1,4 +1,4 @@
-<dsv-theme>
+<dsv-theme appSwipe (swipeLeft)="menuService.closeMenu()" (swipeRight)="menuService.toogleMenu()">
     <header>
         <dsv-header [titleText]="environmentService.config()?.APP_NAME!" img="/images/logo.png">
             <dsv-auth>

@@ -14,6 +14,7 @@ import {
     NotificationButtonContainer,
     NotificationService,
 } from '@ng-vagabond-lab/ng-dsv/module/notification';
+import { PlatformSwipeDirective } from '@ng-vagabond-lab/ng-dsv/platform';
 import { FooterComponent, MenuContainer, MenuDto } from '@ng-vagabond-lab/ng-dsv/template';
 import { menu } from './conf/menu.conf';
 import { NotificationPushService } from './module/notification/service/notification-push.service';
@@ -33,6 +34,7 @@ import { NotificationPushService } from './module/notification/service/notificat
         RouterOutlet,
         NotificationButtonContainer,
         DragDropModule,
+        PlatformSwipeDirective,
     ],
     templateUrl: './app.component.html',
 })

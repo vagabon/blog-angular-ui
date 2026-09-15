@@ -34,7 +34,9 @@ export class TodolistItemComponent {
     }
 
     doChange(): void {
-        this.callbackUpdate.emit(this.readForm().value().name);
+        if (this.readForm().value().name !== this.todolistItem()?.name) {
+            this.callbackUpdate.emit(this.readForm().value().name);
+        }
         setTimeout(() => this.update.set(false), 100);
     }
 }

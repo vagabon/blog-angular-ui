@@ -4,7 +4,7 @@
     class="modal-form"
 >
     <dsv-form-signal [form]="listForm" (callback)="doSubmit()" textValid="ENREGISTRER">
-        <dsv-form-signal-input [form]="listForm" fieldName="name" />
+        <dsv-form-signal-input #nameInput [form]="listForm" fieldName="name" />
         <div class="input-icon">
             <i [class]="listForm.avatar().value()"></i>
             <dsv-form-signal-select [form]="listForm" fieldName="avatar" [list]="icons()" />

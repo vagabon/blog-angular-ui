@@ -1,4 +1,5 @@
 <app-list-modal-form
+    [isOpen]="isFormModalOpen()"
     [userConnected]="authService.userConnected()"
     [listSelected]="todolistService.todolistSelected()"
     (callback)="todolistService.addTodolist($event)"

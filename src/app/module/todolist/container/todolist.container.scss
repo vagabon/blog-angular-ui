@@ -16,7 +16,7 @@
             justify-content: space-between;
             margin: 0 0 5px;
             width: calc(100% - 5px);
-            gap: 5px;
+            gap: 8px;
 
             h2 {
                 margin: 0px;
@@ -25,7 +25,7 @@
 
             dsv-button.round {
                 --button-border-radius: 50%;
-                --button-padding: 2px 0px;
+                --button-padding: 2px 3px 0px 0px;
             }
         }
 
@@ -102,5 +102,9 @@
         width: calc(100% - 10px);
         margin: 10px 0;
         gap: 5px;
+
+        dsv-form-signal-input {
+            --input-background: var(--background-card-light);
+        }
     }
 }

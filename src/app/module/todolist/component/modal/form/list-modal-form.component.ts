@@ -1,4 +1,4 @@
-import { Component, effect, input, output, signal } from '@angular/core';
+import { Component, effect, input, output, signal, viewChild } from '@angular/core';
 import { form, validate } from '@angular/forms/signals';
 import {
     DsvFormSignalComponent,
@@ -48,6 +48,8 @@ export class ListModalFormComponent {
     readonly userConnected = input<UserDto | null>(null);
     readonly listSelected = input<TodolistDto | undefined>(undefined);
     readonly modalName = input<string>('modal-totolist-form');
+    readonly isOpen = input<boolean>(false);
+    readonly nameInput = viewChild<DsvFormSignalInputComponent<string>>('nameInput');
 
     readonly callback = output<TodolistDto>();
 
@@ -59,7 +61,13 @@ export class ListModalFormComponent {
 
     constructor() {
         effect(() => {
-            this.listForm().reset(this.initValue(this.listSelected()));
+            if (this.isOpen()) {
+                this.listForm().reset(this.initValue(this.listSelected()));
+                this.nameInput()?.focus();
+                setTimeout(() => {
+                    this.nameInput()?.focus();
+                }, 500);
+            }
         });
     }
 

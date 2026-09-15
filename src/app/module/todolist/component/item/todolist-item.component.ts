@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, input, output, signal, viewChild } from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
 import { DsvButtonComponent } from '@ng-vagabond-lab/ng-dsv/ds/button';
 import {
@@ -15,13 +15,10 @@ import { TodolistItemDto } from '../../dto/todolist.dto';
 })
 export class TodolistItemComponent {
     readonly todolistItem = input<TodolistItemDto>();
-    readonly dragged = input<boolean>();
 
     readonly callback = output<TodolistItemDto>();
     readonly callbackUpdate = output<string>();
     readonly callbackDelete = output<TodolistItemDto>();
-
-    readonly checkboxRef = viewChild<ElementRef>('checkbox');
 
     readonly readForm = form<TodolistItemDto>(signal({} as TodolistItemDto));
 
@@ -36,12 +33,8 @@ export class TodolistItemComponent {
         });
     }
 
-    triggerCheckbox(): void {
-        !this.update() && !this.dragged() && this.checkboxRef()?.nativeElement.querySelector('input').click();
-    }
-
     doChange(): void {
-        this.update.set(false);
         this.callbackUpdate.emit(this.readForm().value().name);
+        setTimeout(() => this.update.set(false), 100);
     }
 }

@@ -1,5 +1,5 @@
 <div class="content">
-    <div #checkbox class="checkbox">
+    <div class="checkbox">
         <dsv-form-signal-checkbox
             [form]="readForm"
             fieldName="checked"
@@ -7,12 +7,12 @@
             (callbackChange)="callback.emit(todolistItem()!)"
         />
     </div>
-    <div class="name" (click)="triggerCheckbox()" (keyup)="triggerCheckbox()">
+    <div class="name">
         @if (update()) {
             <dsv-form-signal-input
                 [form]="readForm"
                 fieldName="name"
-                [type]="'text'"
+                type="textarea"
                 [withLabel]="false"
                 (callbackSend)="doChange()"
             />

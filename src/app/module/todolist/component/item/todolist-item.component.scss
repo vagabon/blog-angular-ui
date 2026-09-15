@@ -13,12 +13,15 @@
     .checkbox {
         display: flex;
         align-items: center;
-        margin-right: 10px;
 
         dsv-form-signal-checkbox {
             --checkbox-width: 15px;
             --checkbox-height: 15px;
             margin: 0px !important;
+            display: flex;
+            align-items: center;
+            width: 28px;
+            height: 100%;
         }
     }
 
@@ -38,10 +41,11 @@
         i {
             font-size: 1.4rem;
         }
+    }
 
-        &:hover {
-            transform: scale(1.01);
-        }
+    dsv-form-signal-input {
+        --input-min-height: 15px;
+        --input-resize: none;
     }
 
     .actions {

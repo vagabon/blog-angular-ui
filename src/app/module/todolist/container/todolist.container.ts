@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, effect, inject, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
@@ -41,7 +41,6 @@ export class TodolistContainer extends BaseRouteContainer {
     readonly todolistItems = signal<TodolistItemDto[] | undefined>([]);
 
     readonly created = signal<boolean>(false);
-    readonly dragged = signal<boolean>(false);
 
     readonly itemForm = form(
         signal({
@@ -72,7 +71,7 @@ export class TodolistContainer extends BaseRouteContainer {
 
     doChecked(todolistItem: TodolistItemDto): void {
         todolistItem = { ...todolistItem, checked: !todolistItem.checked };
-        !this.dragged() && this.todolistService.addItemToList(todolistItem);
+        this.todolistService.addItemToList(todolistItem);
     }
 
     doCreate(): void {
@@ -92,13 +91,8 @@ export class TodolistContainer extends BaseRouteContainer {
         this.todolistService.updateTodolistItem({ ...item, name: newName });
     }
 
-    onDrag(event: CdkDragStart<TodolistItemDto>): void {
-        this.dragged?.set(true);
-    }
-
     doDrop(event: CdkDragDrop<TodolistItemDto[]>): void {
         moveItemInArray(this.todolistItems()!, event.previousIndex, event.currentIndex);
         this.todolistService.order(this.todolistItems()!);
-        this.dragged?.set(false);
     }
 }

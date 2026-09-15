@@ -146,8 +146,6 @@ export class TodolistService extends BaseApiService {
             return { ...item, orderNumber: order };
         });
         this.todolistItems.set(items[0].todolist?.id, items);
-        this.apiService.put('/todolist/item/order', items, () => {
-            this.fetchTodolistById(items[0].todolist?.id);
-        });
+        this.apiService.put('/todolist/item/order', items);
     }
 }

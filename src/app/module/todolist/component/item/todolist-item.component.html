@@ -8,11 +8,20 @@
         />
     </div>
     <div class="name" (click)="triggerCheckbox()" (keyup)="triggerCheckbox()">
-        <app-todolist-icon [icon]="todolistItem()?.todolist.avatar ?? ''" />
-        {{ todolistItem()?.name }}
+        @if (update()) {
+            <dsv-form-signal-input
+                [form]="readForm"
+                fieldName="name"
+                [type]="'text'"
+                [withLabel]="false"
+                (callbackSend)="doChange()"
+            />
+        } @else {
+            {{ todolistItem()?.name }}
+        }
     </div>
     <div class="actions">
-        <dsv-button color="secondary" variant="text" icon="ri-edit-line" />
+        <dsv-button color="secondary" variant="text" icon="ri-edit-line" (callback)="update.set(!update())" />
         <dsv-button
             color="error"
             variant="text"

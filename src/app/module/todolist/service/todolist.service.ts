@@ -109,6 +109,14 @@ export class TodolistService extends BaseApiService {
         });
     }
 
+    updateTodolistItem(item: TodolistItemDto) {
+        this.apiService.put('/todolist/item/', item);
+        this.todolistItems.set(
+            item.todolist?.id,
+            this.todolistItems.get(item.todolist?.id)?.map((i) => (i.id === item.id ? item : i))!,
+        );
+    }
+
     deleteTodolistItem(): void {
         this.apiService.delete<TodolistItemDto[]>(
             '/todolist/item/desactivate?id=' + this.todolistItemSelected()?.id,
@@ -138,6 +146,8 @@ export class TodolistService extends BaseApiService {
             return { ...item, orderNumber: order };
         });
         this.todolistItems.set(items[0].todolist?.id, items);
-        this.apiService.put('/todolist/item/order', items);
+        this.apiService.put('/todolist/item/order', items, () => {
+            this.fetchTodolistById(items[0].todolist?.id);
+        });
     }
 }

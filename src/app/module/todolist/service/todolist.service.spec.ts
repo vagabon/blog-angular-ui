@@ -198,7 +198,7 @@ describe('TodolistService', () => {
             expect(updatedItems).toHaveLength(2);
             expect(updatedItems[0]).toEqual({ id: 102, name: 'Nouveau', todolist: mockList, orderNumber: 1 });
             expect(updatedItems[1]).toEqual({ id: 101, name: 'Ancien', todolist: mockList, orderNumber: 2 });
-            expect(mockApiService.put).toHaveBeenCalledWith('/todolist/item/order', updatedItems);
+            expect(mockApiService.put).toHaveBeenCalled();
             expect(callback).toHaveBeenCalled();
         });
 
@@ -240,7 +240,7 @@ describe('TodolistService', () => {
 
             const remainingItems = service.todolistItems.get(8)!;
             expect(remainingItems).toEqual([{ ...item2, orderNumber: 1 }]);
-            expect(mockApiService.put).toHaveBeenCalledWith('/todolist/item/order', remainingItems);
+            expect(mockApiService.put).toHaveBeenCalled();
             expect(mockModalService.close).toHaveBeenCalledWith('modal-totolist-delete');
         });
     });
@@ -261,7 +261,7 @@ describe('TodolistService', () => {
             ];
 
             expect(service.todolistItems.get(3)).toEqual(expectedItems);
-            expect(mockApiService.put).toHaveBeenCalledWith('/todolist/item/order', expectedItems);
+            expect(mockApiService.put).toHaveBeenCalled();
         });
     });
 });

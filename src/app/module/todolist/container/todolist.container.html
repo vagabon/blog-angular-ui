@@ -1,6 +1,7 @@
 <dsv-card>
     <dsv-card-header>
         <dsv-button class="round" icon="ri-arrow-left-s-line" color="inherit" routerLink="/todolist" />
+        <app-todolist-icon [icon]="todolist()?.avatar ?? ''" />
         @if (todolist()?.name) {
             <h2>{{ todolist()?.name }} ({{ todolist()?.nbItems }})</h2>
         }
@@ -19,9 +20,12 @@
     @for (item of todolistItems(); track item.id) {
         <app-todolist-item
             cdkDrag
+            [dragged]="dragged()"
             [cdkDragStartDelay]="{ touch: 300, mouse: 0 }"
+            (cdkDragStarted)="onDrag($event)"
             [todolistItem]="item"
             (callback)="doChecked($event)"
+            (callbackUpdate)="doUpdate(item, $event)"
             (callbackDelete)="todolistService.doDeleteSelectItem($event)"
         />
     }

@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, effect, inject, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
@@ -7,6 +7,7 @@ import { DsvButtonComponent } from '@ng-vagabond-lab/ng-dsv/ds/button';
 import { DsvCardComponent, DsvCardHeaderComponent } from '@ng-vagabond-lab/ng-dsv/ds/card';
 import { DsvFormSignalInputComponent } from '@ng-vagabond-lab/ng-dsv/ds/form/signal';
 import { DsvScrollInfiniteContainer } from '@ng-vagabond-lab/ng-dsv/ds/scroll';
+import { TodolistIconComponent } from '../component/icon/todolist-icon.component';
 import { TodolistItemComponent } from '../component/item/todolist-item.component';
 import { TodolistModalDeleteComponent } from '../component/modal/delete/todolist-modal-delete.component';
 import { TodolistDto, TodolistItemDto } from '../dto/todolist.dto';
@@ -26,6 +27,7 @@ import { MovieModalSearchContainer } from './notification/todolist-notification.
         TodolistModalDeleteComponent,
         CdkDropList,
         CdkDrag,
+        TodolistIconComponent,
     ],
     selector: 'app-todolist',
     styleUrl: './todolist.container.scss',
@@ -39,6 +41,7 @@ export class TodolistContainer extends BaseRouteContainer {
     readonly todolistItems = signal<TodolistItemDto[] | undefined>([]);
 
     readonly created = signal<boolean>(false);
+    readonly dragged = signal<boolean>(false);
 
     readonly itemForm = form(
         signal({
@@ -69,7 +72,7 @@ export class TodolistContainer extends BaseRouteContainer {
 
     doChecked(todolistItem: TodolistItemDto): void {
         todolistItem = { ...todolistItem, checked: !todolistItem.checked };
-        this.todolistService.addItemToList(todolistItem);
+        !this.dragged() && this.todolistService.addItemToList(todolistItem);
     }
 
     doCreate(): void {
@@ -85,8 +88,17 @@ export class TodolistContainer extends BaseRouteContainer {
             );
     }
 
+    doUpdate(item: TodolistItemDto, newName: string): void {
+        this.todolistService.updateTodolistItem({ ...item, name: newName });
+    }
+
+    onDrag(event: CdkDragStart<TodolistItemDto>): void {
+        this.dragged?.set(true);
+    }
+
     doDrop(event: CdkDragDrop<TodolistItemDto[]>): void {
         moveItemInArray(this.todolistItems()!, event.previousIndex, event.currentIndex);
         this.todolistService.order(this.todolistItems()!);
+        this.dragged?.set(false);
     }
 }

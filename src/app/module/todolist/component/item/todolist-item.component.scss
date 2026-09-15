@@ -16,6 +16,8 @@
         margin-right: 10px;
 
         dsv-form-signal-checkbox {
+            --checkbox-width: 15px;
+            --checkbox-height: 15px;
             margin: 0px !important;
         }
     }
@@ -31,6 +33,7 @@
         align-items: center;
         flex: 1;
         gap: 10px;
+        font-size: 1rem;
 
         i {
             font-size: 1.4rem;

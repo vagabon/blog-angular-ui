@@ -31,6 +31,7 @@ describe('AppComponent', () => {
         envServiceMock = {
             config: signal({
                 APP_NAME: 'Blog & Tools',
+                API_URL: 'http://api.localhost:8080',
                 GOOGLE_CLIENT_ID: 'GOOGLE_CLIENT_ID',
                 ANALYTICS_ID: '',
                 CONTACT: 'CONTACT',
@@ -61,6 +62,7 @@ describe('AppComponent', () => {
                         hasRole: vi.fn(),
                         apiService: {
                             nbLoaded: signal(0),
+                            baseUrl: signal(''),
                         },
                     },
                 },

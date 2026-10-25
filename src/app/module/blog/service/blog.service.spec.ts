@@ -65,8 +65,8 @@ describe('BlogService', () => {
             mockApiService.get.mockImplementation((_url: string, cb: (d: BlogDto) => void) => cb(mockBlog));
             service.doFetchBlog(1);
 
-            expect(mockApiService.get).toHaveBeenCalledWith('/blog/1', expect.any(Function));
-            expect(mockBaseFetchService.setDataToState).toHaveBeenCalledWith('/blog/1', mockBlog);
+            expect(mockApiService.get).toHaveBeenCalledWith('/blogs/1', expect.any(Function));
+            expect(mockBaseFetchService.setDataToState).toHaveBeenCalledWith('/blogs/1', mockBlog);
             expect(service.blog.get(1)).toEqual(mockBlog);
         });
     });
@@ -82,7 +82,7 @@ describe('BlogService', () => {
             service.createOrUpdate(newBlog, callback);
 
             expect(mockApiService.createOrUpdate).toHaveBeenCalledWith(
-                'blog',
+                'blogs',
                 newBlog,
                 expect.any(Function),
                 expect.stringContaining('créer'),
@@ -102,7 +102,7 @@ describe('BlogService', () => {
             service.createOrUpdate(mockBlog);
 
             expect(mockApiService.createOrUpdate).toHaveBeenCalledWith(
-                'blog',
+                'blogs',
                 mockBlog,
                 expect.any(Function),
                 expect.stringContaining('mise a jour'),

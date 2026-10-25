@@ -12,7 +12,6 @@ describe('ProfilContainer', () => {
     let component: ProfilContainer;
     let fixture: ComponentFixture<ProfilContainer>;
 
-    // 1. Déclaration du signal profil pour le mock
     const profilSignal = signal<ProfilDto | null>(null);
 
     let mockProfilService: {
@@ -29,9 +28,8 @@ describe('ProfilContainer', () => {
 
     beforeEach(async () => {
         userConnectedSignal.set(null);
-        profilSignal.set(null); // Réinitialisation du signal profil entre chaque test
+        profilSignal.set(null);
 
-        // 2. Ajout de profil dans l'objet mockProfilService
         mockProfilService = {
             getProfilCounts: vi.fn(),
             profil: profilSignal,

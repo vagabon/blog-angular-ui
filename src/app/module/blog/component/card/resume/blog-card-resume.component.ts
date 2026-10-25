@@ -22,4 +22,5 @@ import { BlogDto } from '../../../dto/blog.dto';
 })
 export class BlogCardResumeComponent {
     readonly blog = input<BlogDto>();
+    readonly url = input.required<string>();
 }

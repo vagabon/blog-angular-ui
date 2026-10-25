@@ -13,7 +13,7 @@ export class BlogService extends BaseFetchService<BlogDto> {
     readonly blog = new StoreMap<ID, BlogDto>();
 
     doFetchBlog(blogId: number): void {
-        const url = '/blog/' + blogId;
+        const url = '/blogs/' + blogId;
         const data = this.getDataFromState(url);
         if (data) {
             this.initBlog(blogId, data);
@@ -32,7 +32,7 @@ export class BlogService extends BaseFetchService<BlogDto> {
     createOrUpdate(blog: BlogDto, callback?: (data: BlogDto) => void) {
         const toast = "La blog '" + blog.title + "' a bien été " + (blog.id ? 'mise a jour' : 'créer') + '.';
         this.apiService.createOrUpdate<BlogDto>(
-            'blog',
+            'blogs',
             blog,
             (data) => {
                 this.blog.set(data.id, data);

@@ -13,7 +13,7 @@ export class ProfilService extends BaseApiService {
     readonly profil = signal<ProfilDto | null>(null);
 
     getProfilCounts(userId?: ID): void {
-        this.apiService.get<ProfilDto>('/todolist/list/count?userId=' + userId, (data) => {
+        this.apiService.get<ProfilDto>('/todolists/lists/count?userId=' + userId, (data) => {
             this.profil.update((profil) => {
                 return { ...profil, ...data };
             });
@@ -21,10 +21,10 @@ export class ProfilService extends BaseApiService {
     }
 
     sendNotification() {
-        this.apiService.post('/notification/send', {});
+        this.apiService.post('/notifications/send', {});
     }
 
     sendEmail() {
-        this.apiService.post('/email/produce', {});
+        this.apiService.post('/emails/produce', {});
     }
 }

@@ -121,8 +121,7 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "poll": 500,
-            "proxyConfig": "proxy.conf.json"
+            "poll": 500
           }
         },
         "extract-i18n": {

@@ -14,13 +14,11 @@ describe('ProfilService', () => {
     let mockRouterService: Partial<RouterService>;
 
     beforeEach(() => {
-        // Mock du service API hérité via BaseApiService
         mockApiService = {
             get: vi.fn(),
             post: vi.fn(),
         };
 
-        // Mock du RouterService injecté
         mockRouterService = {};
 
         TestBed.configureTestingModule({
@@ -33,7 +31,6 @@ describe('ProfilService', () => {
 
         service = TestBed.inject(ProfilService);
 
-        // On attache le spy sur la propriété apiService héritée de BaseApiService
         (service as any).apiService = mockApiService;
     });
 
@@ -46,7 +43,6 @@ describe('ProfilService', () => {
         it('devrait appeler apiService.get avec le paramètre userId et mettre à jour le signal profil', () => {
             const mockProfilData: Partial<ProfilDto> = { id: 1, name: 'John Doe' } as any;
 
-            // Simulation de l'exécution immédiate du callback retourné par apiService.get
             mockApiService.get.mockImplementation((url: string, callback: (data: any) => void) => {
                 callback(mockProfilData);
             });
@@ -54,16 +50,14 @@ describe('ProfilService', () => {
             service.getProfilCounts(42);
 
             expect(mockApiService.get).toHaveBeenCalledWith(
-                '/todolist/list/count?userId=42',
+                '/todolists/lists/count?userId=42',
                 expect.any(Function),
             );
 
-            // Le signal profil doit être mis à jour avec les données reçues
             expect(service.profil()).toEqual(mockProfilData);
         });
 
         it('devrait fusionner les nouvelles données avec le profil existant dans le signal', () => {
-            // État initial du signal
             const initialProfil = { id: 1, name: 'John', count: 5 } as unknown as ProfilDto;
             service.profil.set(initialProfil);
 
@@ -86,7 +80,7 @@ describe('ProfilService', () => {
             service.getProfilCounts();
 
             expect(mockApiService.get).toHaveBeenCalledWith(
-                '/todolist/list/count?userId=undefined',
+                '/todolists/lists/count?userId=undefined',
                 expect.any(Function),
             );
         });
@@ -96,7 +90,7 @@ describe('ProfilService', () => {
         it('devrait appeler apiService.post sur l endpoint /notification/send', () => {
             service.sendNotification();
 
-            expect(mockApiService.post).toHaveBeenCalledWith('/notification/send', {});
+            expect(mockApiService.post).toHaveBeenCalledWith('/notifications/send', {});
         });
     });
 
@@ -104,7 +98,7 @@ describe('ProfilService', () => {
         it('devrait appeler apiService.post sur l endpoint /email/produce', () => {
             service.sendEmail();
 
-            expect(mockApiService.post).toHaveBeenCalledWith('/email/produce', {});
+            expect(mockApiService.post).toHaveBeenCalledWith('/emails/produce', {});
         });
     });
 });

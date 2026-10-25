@@ -25,7 +25,7 @@
         (callback)="doFetch()"
     >
         @for (blog of blogListService.blog(); track blog.id) {
-            <app-blog-card-resume [blog]="blog">
+            <app-blog-card-resume [blog]="blog" [url]="blogListService.apiService.baseUrl()">
                 @if (isAdmin()) {
                     <dsv-button
                         class="update-button"

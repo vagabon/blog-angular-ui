@@ -1,6 +1,6 @@
 <dsv-card [routerLink]="'/blog/' + blog()?.id">
     @if (blog()?.image) {
-        <dsv-file-show url="/api/" [src]="blog()?.image ?? ''" />
+        <dsv-file-show [url]="url()" [src]="blog()?.image ?? ''" />
     }
     <h2 [class.error]="!blog()?.active">{{ blog()?.title }}</h2>
     <span class="subtitle">Le {{ blog()?.creationDate! | formatDate: true }}</span>

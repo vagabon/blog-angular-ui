@@ -13,12 +13,6 @@ export const menu = {
             url: '/blog',
         },
         {
-            id: 'tools',
-            text: 'Tools',
-            icon: 'tools',
-            url: '/tools',
-        },
-        {
             id: 'todolist',
             text: 'Todolist',
             icon: 'file-list',

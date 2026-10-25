@@ -24,8 +24,10 @@
         @for (todolist of todolistService.todolists(); track todolist.id) {
             <div class="item">
                 <div class="content">
-                    <dsv-avatar [avatar]="todolist.userCreate.avatar ?? todolist.userCreate.username ?? ''" />
-                    <a [href]="'/todolist/' + todolist.id" class="name">
+                    <dsv-avatar
+                        [avatar]="todolist.userCreate?.avatar ?? todolist.userCreate?.username ?? ''"
+                    />
+                    <a [href]="'/todolist/' + todolist.id" class="name" dsvLink>
                         <app-todolist-icon [icon]="todolist.avatar" />
                         {{ todolist.name }}
                     </a>

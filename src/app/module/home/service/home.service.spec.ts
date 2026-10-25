@@ -25,15 +25,14 @@ describe('HomeService', () => {
 
         service = TestBed.inject(HomeService);
 
-        // Injection du mock apiService hérité de BaseApiService
         (service as any).apiService = mockApiService;
     });
 
     it('devrait être créé et initialiser les signals par défaut', () => {
         expect(service).toBeTruthy();
         expect(service.news()).toBeUndefined();
-        expect(service.lastNews()).toEqual([]);
-        expect(service.lastBlog()).toEqual([]);
+        expect(service.lastNews()).toEqual(undefined);
+        expect(service.lastBlog()).toEqual(undefined);
     });
 
     describe('getNews', () => {
@@ -48,7 +47,7 @@ describe('HomeService', () => {
 
             service.getNews();
 
-            expect(mockApiService.findById).toHaveBeenCalledWith('news', '1', expect.any(Function));
+            expect(mockApiService.findById).toHaveBeenCalledWith('/news', '1', expect.any(Function));
             expect(service.news()).toEqual(mockNewsData);
         });
 
@@ -134,7 +133,7 @@ describe('HomeService', () => {
             service.getLastBlog();
 
             expect(mockApiService.findBy).toHaveBeenCalledWith(
-                '/blog/findBy',
+                '/blogs/findBy',
                 '(title%And|Description%)AndActive',
                 ',,true',
                 0,

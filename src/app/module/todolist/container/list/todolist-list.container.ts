@@ -6,6 +6,7 @@ import { DsvChipComponent } from '@ng-vagabond-lab/ng-dsv/ds/chip';
 import { DsvFormSignalSearchbarComponent } from '@ng-vagabond-lab/ng-dsv/ds/form/signal';
 import { DsvScrollInfiniteContainer } from '@ng-vagabond-lab/ng-dsv/ds/scroll';
 import { AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
+import { RouterInternalPipe } from '@ng-vagabond-lab/ng-dsv/router';
 import { TodolistIconComponent } from '../../component/icon/todolist-icon.component';
 import { TodolistService } from '../../service/todolist.service';
 import { ListModalFormContainer } from '../modal/list-modal-form.container';
@@ -22,6 +23,7 @@ import { ListModalFormContainer } from '../modal/list-modal-form.container';
         TodolistIconComponent,
         ListModalFormContainer,
         DsvButtonComponent,
+        RouterInternalPipe,
     ],
     styleUrls: ['../todolist.container.scss', './todolist-list.container.scss'],
     templateUrl: './todolist-list.container.html',

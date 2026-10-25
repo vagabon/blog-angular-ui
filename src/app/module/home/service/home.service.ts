@@ -7,15 +7,16 @@ import { BlogDto } from 'app/module/blog/dto/blog.dto';
 @Service()
 export class HomeService extends BaseApiService {
     public readonly news = signal<NewsDto | undefined>(undefined);
-    public readonly lastNews = signal<NewsDto[]>([]);
-    public readonly lastBlog = signal<BlogDto[]>([]);
+    public readonly lastNews = signal<NewsDto[] | undefined>(undefined);
+    public readonly lastBlog = signal<BlogDto[] | undefined>(undefined);
 
     getNews() {
-        !this.news() && this.apiService.findById<NewsDto>('news', '1', (news) => this.news.set(news));
+        !this.news() &&
+            this.apiService.findById<NewsDto>('/news', '1', (news) => this.news.set(news ?? ({} as NewsDto)));
     }
 
     getLastNews() {
-        this.lastNews().length === 0 &&
+        !this.lastNews() &&
             this.apiService.findBy<PageableDto<NewsDto[]>>(
                 '/news/findBy',
                 '(title%And|Description%)AndActive',
@@ -31,9 +32,9 @@ export class HomeService extends BaseApiService {
     }
 
     getLastBlog() {
-        this.lastBlog().length === 0 &&
+        !this.lastBlog() &&
             this.apiService.findBy<PageableDto<BlogDto[]>>(
-                '/blog/findBy',
+                '/blogs/findBy',
                 '(title%And|Description%)AndActive',
                 ',,true',
                 0,

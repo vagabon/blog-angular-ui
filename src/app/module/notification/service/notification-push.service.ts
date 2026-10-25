@@ -21,7 +21,7 @@ export class NotificationPushService {
             serviceWorkerRegistration: registration,
         });
 
-        this.authService.apiService.put('/notification/token/user', {
+        this.authService.apiService.put('/notifications/tokens/user', {
             userId: this.authService.userConnected()!.id,
             token: token,
         });

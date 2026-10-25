@@ -69,7 +69,7 @@ describe('TodolistService', () => {
             expect(service.firstLoad()).toBe(true);
             expect(service.todolists()).toEqual([{ id: 1, name: 'Films' }]);
             expect(mockApiService.get).toHaveBeenCalledWith(
-                '/todolist/list/findByUser?userId=10&search=films&page=2',
+                '/todolists/lists/findByUser?userId=10&search=films&page=2',
                 expect.any(Function),
             );
         });
@@ -81,9 +81,9 @@ describe('TodolistService', () => {
             const mockItems = [{ id: 101, name: 'Inception' }] as TodolistItemDto[];
 
             mockApiService.get.mockImplementation((url: string, callback: (data: any) => void) => {
-                if (url.includes('/todolist/list/1')) {
+                if (url.includes('/todolists/lists/1')) {
                     callback(mockList);
-                } else if (url.includes('/todolist/item/findBy')) {
+                } else if (url.includes('/todolists/items/findBy')) {
                     callback({ content: mockItems });
                 }
             });
@@ -166,7 +166,7 @@ describe('TodolistService', () => {
             service.deleteTodolist();
 
             expect(mockApiService.delete).toHaveBeenCalledWith(
-                '/todolist/list/desactivate?id=1',
+                '/todolists/lists/desactivate?id=1',
                 expect.any(Function),
             );
             expect(service.todolists()).toEqual([{ id: 2, name: 'Livres' }]);
@@ -215,7 +215,7 @@ describe('TodolistService', () => {
             service.addItemToList(existingItem);
 
             expect(mockApiService.createOrUpdate).toHaveBeenCalledWith(
-                'todolist/item',
+                'todolists/items',
                 existingItem,
                 expect.any(Function),
             );

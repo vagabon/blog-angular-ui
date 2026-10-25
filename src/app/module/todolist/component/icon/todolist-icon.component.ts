@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
     templateUrl: './todolist-icon.component.html',
 })
 export class TodolistIconComponent {
-    readonly icon = input<string>('');
+    readonly icon = input<string | undefined>('');
 }

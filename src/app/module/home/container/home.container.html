@@ -1,5 +1,5 @@
 <div class="bento">
-    <app-news-card-resume [news]="homeService.news()" />
+    <app-news-card-resume [news]="homeService.news()" [url]="homeService.apiService.baseUrl()" />
 </div>
 
 <div class="bento">
@@ -12,7 +12,9 @@
                         <img
                             [src]="
                                 news.image
-                                    ? '/api/file/download?fileName=' + news.image
+                                    ? homeService.apiService.baseUrl() +
+                                      '/files/download?fileName=' +
+                                      news.image
                                     : '/images/vagabond.png'
                             "
                             [alt]="news.title"
@@ -36,7 +38,9 @@
                         <img
                             [src]="
                                 blog.image
-                                    ? '/api/file/download?fileName=' + blog.image
+                                    ? homeService.apiService.baseUrl() +
+                                      '/files/download?fileName=' +
+                                      blog.image
                                     : '/images/vagabond.png'
                             "
                             [alt]="blog.title"

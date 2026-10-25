@@ -44,7 +44,7 @@ export const routes: Routes = [
     {
         path: 'contact',
         component: ContactComponent,
-        data: { contactEmail: 'contact@movie-keeper.fr' },
+        data: { contactEmail: 'vagabond.git@gmail.com' },
     },
     {
         path: 'access-denied',

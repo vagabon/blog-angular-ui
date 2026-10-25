@@ -46,13 +46,15 @@ describe('BlogContainer', () => {
             imports: [BlogContainer],
             providers: [
                 provideTranslateService(),
-                { provide: ActivatedRoute, useValue: { params: { subscribe: vi.fn() } } },
                 { provide: AuthService, useValue: { hasRole, canFetch } },
                 { provide: RouterService, useValue: { router: { navigate: routerNavigate } } },
                 { provide: ActivatedRoute, useValue: { params: paramsSubject } },
                 {
                     provide: BlogService,
                     useValue: {
+                        apiService: {
+                            baseUrl: signal('/blog/v1'),
+                        },
                         blog: {
                             data: blogData,
                             get: (id: number) => blogMap.get(id),

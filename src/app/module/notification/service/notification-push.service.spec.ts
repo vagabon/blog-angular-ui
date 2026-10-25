@@ -35,7 +35,6 @@ describe('NotificationPushService', () => {
             },
         };
 
-        // Mock global du navigator.serviceWorker.register
         Object.defineProperty(globalThis.navigator, 'serviceWorker', {
             value: {
                 register: vi.fn().mockResolvedValue(mockServiceWorkerRegistration),
@@ -44,7 +43,6 @@ describe('NotificationPushService', () => {
             configurable: true,
         });
 
-        // Mock global de alert()
         vi.stubGlobal('alert', vi.fn());
 
         TestBed.configureTestingModule({
@@ -96,7 +94,7 @@ describe('NotificationPushService', () => {
                 serviceWorkerRegistration: mockServiceWorkerRegistration,
             });
 
-            expect(mockAuthService.apiService.put).toHaveBeenCalledWith('/notification/token/user', {
+            expect(mockAuthService.apiService.put).toHaveBeenCalledWith('/notifications/tokens/user', {
                 userId: 'user-123',
                 token: mockToken,
             });

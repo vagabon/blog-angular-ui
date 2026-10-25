@@ -12,7 +12,7 @@ export class BlogListService extends BaseSearchService<BlogDto> {
     readonly blog = this.datas;
 
     override getEndPoint(): string {
-        return '/blog/findBy';
+        return '/blogs/findBy';
     }
 
     override getParams(): string {

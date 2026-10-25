@@ -8,6 +8,7 @@ import AUTH_FR from './locale/fr/auth.json';
 import FR from './locale/fr/fr.json';
 import MENU_FR from './locale/fr/menu.json';
 
+import { ApiService } from '@ng-vagabond-lab/ng-dsv/api';
 import AUTH_EN from './locale/en/auth.json';
 import EN from './locale/en/en.json';
 import MENU_EN from './locale/en/menu.json';
@@ -31,5 +32,10 @@ export const initializeApp_ = () => {
         },
     );
 
-    return environmentService.loadEnv();
+    const apiService = inject(ApiService);
+
+    return environmentService.loadEnv().then((config) => {
+        apiService.baseUrl.set(config.API_URL + '/blog/v2');
+        apiService.baseGwUrl.set(config.API_URL + '/v1');
+    });
 };

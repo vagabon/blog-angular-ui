@@ -24,7 +24,7 @@ export class TodolistService extends BaseApiService {
     fetchList(userId: ID, page: number = 0): void {
         this.loaded.set(false);
         this.apiService.get<PageableDto<TodolistDto[]>>(
-            `/todolist/list/findByUser?userId=${userId}&search=${this.search()}&page=${page}`,
+            `/todolists/lists/findByUser?userId=${userId}&search=${this.search()}&page=${page}`,
             (data) => {
                 this.todolists.set(data.content);
                 this.loaded.set(true);
@@ -34,12 +34,12 @@ export class TodolistService extends BaseApiService {
     }
 
     fetchTodolistById(id: ID): void {
-        this.apiService.get<TodolistDto>(`/todolist/list/${id}`, (data) => {
+        this.apiService.get<TodolistDto>(`/todolists/lists/${id}`, (data) => {
             this.todolist.set(id, data);
         });
 
         this.apiService.get<PageableDto<TodolistItemDto[]>>(
-            `/todolist/item/findBy?fields=todolist.idAndActive>>orderNumber&values=${id},true&first=0&max=500`,
+            `/todolists/items/findBy?fields=todolist.idAndActive>>orderNumber&values=${id},true&first=0&max=500`,
             (data) => {
                 this.todolistItems.set(id, data.content);
             },
@@ -66,7 +66,7 @@ export class TodolistService extends BaseApiService {
             ? "La liste '" + list.name + "' a bien été mise à jour."
             : "La liste '" + list.name + "' a bien été crée.";
         this.apiService.createOrUpdate(
-            'todolist/list',
+            'todolists/lists',
             list,
             () => {
                 this.fetchList(this.authService.userConnected()?.id, 0);
@@ -78,7 +78,7 @@ export class TodolistService extends BaseApiService {
 
     deleteTodolist(): void {
         this.apiService.delete<TodolistDto[]>(
-            '/todolist/list/desactivate?id=' + this.todolistSelected()?.id,
+            '/todolists/lists/desactivate?id=' + this.todolistSelected()?.id,
             () => {
                 this.todolists.set(
                     this.todolists()?.filter((list) => list.id !== this.todolistSelected()?.id),
@@ -91,7 +91,7 @@ export class TodolistService extends BaseApiService {
 
     addItemToList(list: TodolistItemDto, callback?: () => void): void {
         const isCreate = list.id === undefined;
-        this.apiService.createOrUpdate('todolist/item', list, (data) => {
+        this.apiService.createOrUpdate('todolists/items', list, (data) => {
             if (isCreate) {
                 let items = this.todolistItems.get(list.todolist?.id);
                 items?.unshift(data);
@@ -110,7 +110,7 @@ export class TodolistService extends BaseApiService {
     }
 
     updateTodolistItem(item: TodolistItemDto) {
-        this.apiService.put('/todolist/item/', item);
+        this.apiService.put('/todolists/items/', item);
         this.todolistItems.set(
             item.todolist?.id,
             this.todolistItems.get(item.todolist?.id)?.map((i) => (i.id === item.id ? item : i))!,
@@ -119,7 +119,7 @@ export class TodolistService extends BaseApiService {
 
     deleteTodolistItem(): void {
         this.apiService.delete<TodolistItemDto[]>(
-            '/todolist/item/desactivate?id=' + this.todolistItemSelected()?.id,
+            '/todolists/items/desactivate?id=' + this.todolistItemSelected()?.id,
             () => {
                 const items = this.todolistItems.get(this.todolistItemSelected()?.todolist?.id);
                 let order = 0;
@@ -141,11 +141,14 @@ export class TodolistService extends BaseApiService {
 
     order(items: TodolistItemDto[]) {
         let order = 0;
+        if (items.length === 0) {
+            return;
+        }
         items = items.map((item) => {
             order++;
             return { ...item, orderNumber: order };
         });
-        this.todolistItems.set(items[0].todolist?.id, items);
-        this.apiService.put('/todolist/item/order', items);
+        this.todolistItems.set(items?.[0]?.todolist?.id, items);
+        this.apiService.put('/todolists/items/order', items);
     }
 }

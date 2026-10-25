@@ -1,4 +1,3 @@
-// vite.config.ts
 import angular from '@analogjs/vite-plugin-angular';
 import path from 'path';
 import { defineConfig } from 'vitest/config';
@@ -41,7 +40,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            app: path.resolve(__dirname, 'src/app'),
+            app: path.resolve(import.meta.dirname, 'src/app'),
         },
     },
 });

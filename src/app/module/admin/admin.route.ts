@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 export const MemeRoute: Routes = [
-    { path: '', redirectTo: '/admin/user', pathMatch: 'full' },
+    { path: '', redirectTo: '/admin/users', pathMatch: 'full' },
     {
         path: ':type',
         loadComponent: () =>

@@ -11,7 +11,7 @@ export interface TodolistDto {
     creationDate: string;
     updatedDate: string;
 
-    userCreate: UserDto;
+    userCreate: UserDto | undefined;
 }
 
 export interface TodolistItemDto {

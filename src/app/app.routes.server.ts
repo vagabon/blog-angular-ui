@@ -6,26 +6,6 @@ export const serverRoutes: ServerRoute[] = [
         renderMode: RenderMode.Server,
     },
     {
-        path: 'news/**',
-        renderMode: RenderMode.Server,
-    },
-    {
-        path: 'todolist/**',
-        renderMode: RenderMode.Server,
-    },
-    {
-        path: 'notification/**',
-        renderMode: RenderMode.Client,
-    },
-    {
-        path: 'profil/**',
-        renderMode: RenderMode.Client,
-    },
-    {
-        path: 'admin/**',
-        renderMode: RenderMode.Client,
-    },
-    {
         path: '**',
         renderMode: RenderMode.Server,
     },

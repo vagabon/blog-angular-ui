@@ -50,9 +50,10 @@ export class AppComponent extends BaseMainContainer {
                 this.notificationPushService.registerAndGetToken();
             }
         });
+
         effect(() => {
             if (this.authService.userConnected() && this.routerService.currentUrl()) {
-                this.notificationService.fetchNbRead();
+                this.notificationService.fetchNbRead(this.routerService.currentUrl());
             }
         });
     }

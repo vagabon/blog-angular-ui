@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { inject, PLATFORM_ID, Service } from '@angular/core';
+import { inject, PLATFORM_ID, Service, signal } from '@angular/core';
 import { getToken, Messaging, onMessage } from '@angular/fire/messaging';
 import { AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
 
@@ -9,8 +9,10 @@ export class NotificationPushService {
     private readonly messaging = inject(Messaging);
     private readonly authService = inject(AuthService);
 
+    private readonly userNotificationToken = signal<string | null>(null);
+
     async registerAndGetToken(): Promise<string | null> {
-        if (!isPlatformBrowser(this.platformId)) {
+        if (!isPlatformBrowser(this.platformId) || this.userNotificationToken() !== null) {
             return null;
         }
         const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
@@ -20,6 +22,7 @@ export class NotificationPushService {
                 'BABz3sjgsFLZmHK6F1HZ3gktG-48JXPJPmDLn1yvKJMIJTa_WGzDVb-xvxQN_7a9qo06jM7YE-BKU1P4a7COaZY',
             serviceWorkerRegistration: registration,
         });
+        this.userNotificationToken.set(token);
 
         this.authService.apiService.put('/notifications/tokens/user', {
             userId: this.authService.userConnected()!.id,

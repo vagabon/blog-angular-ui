@@ -1,7 +1,11 @@
 import { Routes } from '@angular/router';
 
 export const MemeRoute: Routes = [
-    { path: '', redirectTo: '/admin/users', pathMatch: 'full' },
+    {
+        path: '',
+        loadComponent: () =>
+            import('@ng-vagabond-lab/ng-dsv/module/admin').then((m) => m.AdminSearchContainer),
+    },
     {
         path: ':type',
         loadComponent: () =>

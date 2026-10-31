@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, PLATFORM_ID, Service, signal } from '@angular/core';
-import { getToken, Messaging, onMessage } from '@angular/fire/messaging';
+import { Messaging, onMessage, onRegistered, register } from '@angular/fire/messaging';
 import { AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
 
 @Service()
@@ -11,24 +11,27 @@ export class NotificationPushService {
 
     private readonly userNotificationToken = signal<string | null>(null);
 
-    async registerAndGetToken(): Promise<string | null> {
+    async registerAndGetToken(): Promise<void | null> {
         if (!isPlatformBrowser(this.platformId) || this.userNotificationToken() !== null) {
             return null;
         }
+
+        onRegistered(this.messaging, (token) => {
+            this.userNotificationToken.set(token);
+
+            this.authService.apiService.put('/notifications/tokens/user', {
+                userId: this.authService.userConnected()!.id,
+                token: token,
+            });
+        });
+
         const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
 
-        const token = await getToken(this.messaging, {
+        return await register(this.messaging, {
             vapidKey:
                 'BABz3sjgsFLZmHK6F1HZ3gktG-48JXPJPmDLn1yvKJMIJTa_WGzDVb-xvxQN_7a9qo06jM7YE-BKU1P4a7COaZY',
             serviceWorkerRegistration: registration,
         });
-        this.userNotificationToken.set(token);
-
-        this.authService.apiService.put('/notifications/tokens/user', {
-            userId: this.authService.userConnected()!.id,
-            token: token,
-        });
-        return token;
     }
 
     listenForeground() {

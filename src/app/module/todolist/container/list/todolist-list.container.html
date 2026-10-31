@@ -3,21 +3,33 @@
         &nbsp;
         <i class="ri-file-list-line"></i>
         <h2>Todolist ({{ todolistService.todolists().length }})</h2>
-
-        <dsv-button
-            color="secondary"
-            variant="outlined"
-            icon="ri-add-line"
-            libelle="Créer une liste"
-            (callback)="todolistService.doSelectList()"
-        />
+        @if (authService.userConnected()) {
+            <dsv-button
+                color="secondary"
+                variant="outlined"
+                icon="ri-add-line"
+                libelle="Créer une liste"
+                (callback)="todolistService.doSelectList()"
+            />
+        }
     </dsv-card-header>
-    <dsv-form-signal-searchbar [search]="todolistService.search()" (callbackSearch)="doFetch($event)" />
+
+    @if (authService.userConnected()) {
+        <dsv-form-signal-searchbar [search]="todolistService.search()" (callbackSearch)="doFetch($event)" />
+    }
 </dsv-card>
+
+@if (!authService.userConnected()) {
+    <dsv-card>
+        <p>Connectez-vous pour créer des listes</p>
+    </dsv-card>
+}
 
 @if (todolistService.todolists().length === 0 && todolistService.loaded()) {
     <dsv-card>
-        <p>Aucun résultat trouvé</p>
+        @if (authService.userConnected()) {
+            <p>Aucun résultat trouvé</p>
+        }
     </dsv-card>
 } @else {
     <dsv-scroll-infinite #scroll class="card-miniature" [loading]="true">

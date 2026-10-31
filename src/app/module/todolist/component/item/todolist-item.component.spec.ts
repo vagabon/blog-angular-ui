@@ -24,6 +24,17 @@ describe('TodolistItemComponent', () => {
         });
         fixture.detectChanges();
         await fixture.whenStable();
-        expect(component).toBeTruthy();
+
+        component.readForm().value.update((value) => {
+            return {
+                ...value,
+                name: 'new name',
+            };
+        });
+        const emitSpy = vi.spyOn(component.callbackUpdate, 'emit');
+
+        component.doChange();
+
+        expect(emitSpy).toHaveBeenCalled();
     });
 });

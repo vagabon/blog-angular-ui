@@ -48,6 +48,15 @@ export class AppComponent extends BaseMainContainer {
         effect(() => {
             if (this.authService.userConnected()) {
                 this.notificationPushService.registerAndGetToken();
+            } else if (this.authService.isRefreshTokenLoaded()) {
+                if (
+                    this.routerService.currentUrl().includes('/admin') ||
+                    this.routerService.currentUrl().includes('/profil')
+                ) {
+                    this.routerService.router.navigate(['/']);
+                } else if (this.routerService.currentUrl().includes('/todolist/')) {
+                    this.routerService.router.navigate(['/todolist']);
+                }
             }
         });
 

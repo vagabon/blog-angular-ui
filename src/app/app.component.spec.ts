@@ -1,13 +1,18 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { MenuService } from '@ng-vagabond-lab/ng-dsv/ds/menu';
 import { EnvironmentService } from '@ng-vagabond-lab/ng-dsv/environment';
-import { AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
+import { AuthService, UserDto } from '@ng-vagabond-lab/ng-dsv/module/auth';
 import { RouterService } from '@ng-vagabond-lab/ng-dsv/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { NotificationPushService } from './module/notification/service/notification-push.service';
+
+const userConnected = signal<UserDto | null>({ id: 1, username: 'pseudo', roles: [] });
+const currentUrl = signal('/');
+const navigate = vi.fn();
 
 describe('AppComponent', () => {
     let fixture: ComponentFixture<AppComponent>;
@@ -55,7 +60,7 @@ describe('AppComponent', () => {
                 {
                     provide: AuthService,
                     useValue: {
-                        userConnected: signal({ id: 1, pseudo: 'pseudo', email: 'email', roles: [] }),
+                        userConnected,
                         isPlatformBrowser: signal(true),
                         isRefreshTokenLoaded: signal(true),
                         refreshToken: vi.fn(),
@@ -69,12 +74,18 @@ describe('AppComponent', () => {
                 {
                     provide: RouterService,
                     useValue: {
-                        currentUrl: signal(''),
+                        currentUrl,
                         isLoading: signal(false),
                         router: {
-                            navigate: vi.fn(),
+                            navigate: navigate,
                             events: { subscribe: vi.fn(), pipe: () => of({}) },
                         },
+                    },
+                },
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        params: of({}),
                     },
                 },
             ],
@@ -87,5 +98,23 @@ describe('AppComponent', () => {
 
     it('should create the app', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should redirect to / when url is /admin and not connected', () => {
+        userConnected.set(null);
+        currentUrl.set('/admin');
+
+        fixture.detectChanges();
+
+        expect(navigate).toHaveBeenCalledWith(['/']);
+    });
+
+    it('should redirect to /todolist when url is /todolist/ and not connected', () => {
+        userConnected.set(null);
+        currentUrl.set('/todolist/2');
+
+        fixture.detectChanges();
+
+        expect(navigate).toHaveBeenCalledWith(['/todolist']);
     });
 });

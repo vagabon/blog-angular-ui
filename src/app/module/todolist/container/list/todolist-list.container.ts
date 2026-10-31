@@ -41,6 +41,9 @@ export class TodolistListContainer {
                 this.todolistService.todolists().length === 0
             ) {
                 this.doFetch();
+            } else if (!this.authService.userConnected()) {
+                this.todolistService.todolists.set([]);
+                this.todolistService.firstLoad.set(false);
             }
         });
     }

@@ -1,6 +1,6 @@
 import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { getToken, Messaging, onMessage } from '@angular/fire/messaging';
+import { Messaging, onMessage, onRegistered } from '@angular/fire/messaging';
 import { AuthService } from '@ng-vagabond-lab/ng-dsv/module/auth';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NotificationPushService } from './notification-push.service';
@@ -9,6 +9,8 @@ vi.mock('@angular/fire/messaging', () => ({
     Messaging: vi.fn(),
     getToken: vi.fn(),
     onMessage: vi.fn((messaging, nextOrObserver) => {}),
+    onRegistered: vi.fn((messaging, nextOrObserver) => {}),
+    register: vi.fn(),
 }));
 
 describe('NotificationPushService', () => {
@@ -59,6 +61,17 @@ describe('NotificationPushService', () => {
 
     it('devrait être créé', () => {
         expect(service).toBeTruthy();
+
+        const serverService = TestBed.inject(NotificationPushService);
+        serverService.registerAndGetToken();
+
+        const callback = vi.mocked(onRegistered).mock.calls[0][1] as (payload: any) => void;
+        callback('token');
+
+        expect(mockAuthService.apiService.put).toHaveBeenCalledWith('/notifications/tokens/user', {
+            userId: 'user-123',
+            token: 'token',
+        });
     });
 
     describe('registerAndGetToken', () => {
@@ -78,28 +91,6 @@ describe('NotificationPushService', () => {
 
             expect(token).toBeNull();
             expect(navigator.serviceWorker.register).not.toHaveBeenCalled();
-            expect(getToken).not.toHaveBeenCalled();
-        });
-
-        it('devrait enregistrer le Service Worker, obtenir le token FCM et envoyer le token à l API', async () => {
-            const mockToken = 'fcm-token-sample-123';
-            vi.mocked(getToken).mockResolvedValue(mockToken);
-
-            const token = await service.registerAndGetToken();
-
-            expect(navigator.serviceWorker.register).toHaveBeenCalledWith('/firebase-messaging-sw.js');
-            expect(getToken).toHaveBeenCalledWith(mockMessaging, {
-                vapidKey:
-                    'BABz3sjgsFLZmHK6F1HZ3gktG-48JXPJPmDLn1yvKJMIJTa_WGzDVb-xvxQN_7a9qo06jM7YE-BKU1P4a7COaZY',
-                serviceWorkerRegistration: mockServiceWorkerRegistration,
-            });
-
-            expect(mockAuthService.apiService.put).toHaveBeenCalledWith('/notifications/tokens/user', {
-                userId: 'user-123',
-                token: mockToken,
-            });
-
-            expect(token).toBe(mockToken);
         });
     });
 

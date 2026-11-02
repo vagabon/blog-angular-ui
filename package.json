@@ -30,20 +30,20 @@
     "tslib": "^2.9.1"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.9.4",
+    "@analogjs/vite-plugin-angular": "^2.9.5",
     "@angular/build": "^22.2.5",
     "@angular/cli": "^22.2.5",
     "@angular/compiler": "^22.2.4",
     "@angular/compiler-cli": "^22.2.4",
-    "@ng-vagabond-lab/ng-dsv": "^1.0.7",
+    "@ng-vagabond-lab/ng-dsv": "^1.0.11",
     "@types/express": "^5.0.6",
     "@types/prismjs": "^1.26.6",
-    "@vitest/coverage-v8": "^5.0.5",
-    "@vitest/ui": "^5.0.5",
-    "firebase": "^13.1.0",
+    "@vitest/coverage-v8": "^5.1.0",
+    "@vitest/ui": "^5.1.0",
+    "firebase": "^13.2.0",
     "happy-dom": "^21.0.4",
     "katex": "^0.19.1",
-    "marked": "^18.1.2",
+    "marked": "^18.1.3",
     "marked-katex-extension": "^5.1.13",
     "ngx-markdown": "^22.1.1",
     "prettier": "^3.9.10",
@@ -52,7 +52,7 @@
     "sass-embedded": "^1.107.1",
     "sonar-scanner": "^3.1.0",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   },
   "overrides": {
     "firebase": "$firebase"

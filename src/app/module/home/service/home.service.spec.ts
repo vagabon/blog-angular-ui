@@ -31,8 +31,8 @@ describe('HomeService', () => {
     it('devrait être créé et initialiser les signals par défaut', () => {
         expect(service).toBeTruthy();
         expect(service.news()).toBeUndefined();
-        expect(service.lastNews()).toEqual(undefined);
-        expect(service.lastBlog()).toEqual(undefined);
+        expect(service.lastNews()).toBeUndefined();
+        expect(service.lastBlog()).toBeUndefined();
     });
 
     describe('getNews', () => {

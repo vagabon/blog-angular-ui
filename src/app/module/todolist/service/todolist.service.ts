@@ -89,38 +89,48 @@ export class TodolistService extends BaseApiService {
         );
     }
 
-    addItemToList(list: TodolistItemDto, callback?: () => void): void {
-        const isCreate = list.id === undefined;
-        this.apiService.createOrUpdate('todolists/items', list, (data) => {
+    addItemToList(item: TodolistItemDto, callback?: () => void): void {
+        const isCreate = item.id === undefined;
+        this.apiService.createOrUpdate('todolists/items', item, (data) => {
             if (isCreate) {
-                let items = this.todolistItems.get(list.todolist?.id);
+                let items = this.todolistItems.get(item.todolist?.id);
                 items?.unshift(data);
                 let order = 0;
                 this.todolistItems.set(
-                    list.todolist?.id,
+                    item.todolist?.id,
                     items?.map((item) => {
                         order++;
                         return { ...item, orderNumber: order };
                     })!,
                 );
-                this.order(this.todolistItems.get(list.todolist?.id)!);
+                this.order(this.todolistItems.get(item.todolist?.id)!);
+                this.updateTodolist(item.todolist?.id, 1);
+            } else {
+                this.updateTodolist(item.todolist?.id, 0, data.checked);
+                this.todolistItems.set(
+                    item.todolist?.id,
+                    this.todolistItems.get(item.todolist?.id)?.map((i) => (i.id === data.id ? data : i))!,
+                );
             }
             callback?.();
         });
     }
 
     updateTodolistItem(item: TodolistItemDto) {
-        this.apiService.put('/todolists/items/', item);
-        this.todolistItems.set(
-            item.todolist?.id,
-            this.todolistItems.get(item.todolist?.id)?.map((i) => (i.id === item.id ? item : i))!,
-        );
+        this.apiService.put('/todolists/items/', item, () => {
+            this.todolistItems.set(
+                item.todolist?.id,
+                this.todolistItems.get(item.todolist?.id)?.map((i) => (i.id === item.id ? item : i))!,
+            );
+        });
     }
 
     deleteTodolistItem(): void {
         this.apiService.delete<TodolistItemDto[]>(
             '/todolists/items/desactivate?id=' + this.todolistItemSelected()?.id,
             () => {
+                const isChecked = this.todolistItemSelected()?.checked ? false : undefined;
+                this.updateTodolist(this.todolistItemSelected()?.todolist?.id!, -1, isChecked);
                 const items = this.todolistItems.get(this.todolistItemSelected()?.todolist?.id);
                 let order = 0;
                 this.todolistItems.set(
@@ -137,6 +147,29 @@ export class TodolistService extends BaseApiService {
                 this.modalService.close('modal-totolist-delete');
             },
         );
+    }
+
+    private updateTodolist(listId: ID, addItems: number, checked: boolean | undefined = undefined) {
+        const todolist = this.todolist.get(listId);
+        const checkValue = checked ? 1 : -1;
+        todolist &&
+            this.todolist.set(listId, {
+                ...todolist,
+                nbItems: todolist.nbItems + addItems,
+                nbCheckedItems: todolist?.nbCheckedItems + (checked !== undefined ? checkValue : 0),
+            });
+        this.todolists.update((todolists) => [
+            ...todolists.map((t) => {
+                if (t.id === listId) {
+                    return {
+                        ...t,
+                        nbItems: this.todolist.get(listId)?.nbItems!,
+                        nbCheckedItems: this.todolist.get(listId)?.nbCheckedItems!,
+                    };
+                }
+                return t;
+            }),
+        ]);
     }
 
     order(items: TodolistItemDto[]) {

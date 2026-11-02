@@ -59,7 +59,7 @@ export class BlogFormContainer extends BlogContainer {
     doSubmit() {
         if (this.blogForm().valid()) {
             this.blogService.createOrUpdate(this.blogForm().value(), (data: BlogDto) => {
-                this.routerService.router.navigate(['blog', data.id]);
+                this.routerService.navigate(['blog', data.id]);
                 document.getElementById('main-scroll')?.scrollTo(0, 0);
             });
         }

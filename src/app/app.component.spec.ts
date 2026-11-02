@@ -76,8 +76,8 @@ describe('AppComponent', () => {
                     useValue: {
                         currentUrl,
                         isLoading: signal(false),
+                        navigate: navigate,
                         router: {
-                            navigate: navigate,
                             events: { subscribe: vi.fn(), pipe: () => of({}) },
                         },
                     },

@@ -27,10 +27,6 @@ describe('BlogFormContainer', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    it('should create', () => {
         component.blogForm().value.update((data) => ({
             ...data,
             title: 'title',

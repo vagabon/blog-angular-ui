@@ -45,17 +45,17 @@ export class AppComponent extends BaseMainContainer {
 
     constructor() {
         super();
-        effect(() => {
+        effect(async () => {
             if (this.authService.userConnected()) {
-                this.notificationPushService.registerAndGetToken();
+                await this.notificationPushService.registerAndGetToken();
             } else if (this.authService.isRefreshTokenLoaded()) {
                 if (
                     this.routerService.currentUrl().includes('/admin') ||
                     this.routerService.currentUrl().includes('/profil')
                 ) {
-                    this.routerService.router.navigate(['/']);
+                    this.routerService.navigate(['/']);
                 } else if (this.routerService.currentUrl().includes('/todolist/')) {
-                    this.routerService.router.navigate(['/todolist']);
+                    this.routerService.navigate(['/todolist']);
                 }
             }
         });
